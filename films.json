@@ -1,0 +1,116 @@
+[
+  {
+    "id": "001",
+    "title": "Total Pixel Space",
+    "creator": "Jacob Adler",
+    "added": "2026-10-08",
+    "tools": null,
+    "category": "פסטיבל",
+    "description": "סרט־מסה על כל התמונות האפשריות ועל החיים שיכולנו לחיות. זוכה הפרס הגדול ב־Runway AIFF 2025.",
+    "watchUrl": "https://www.youtube.com/watch?v=zpAeygE4d1A",
+    "sourceUrl": "https://aif.runwayml.com/screening-room",
+    "poster": "https://d3phaj0sisr2ct.cloudfront.net/aiff/images/posters/pixel-poster-1.jpg"
+  },
+  {
+    "id": "002",
+    "title": "JAILBIRD",
+    "creator": "Andrew Salter",
+    "added": "2026-10-08",
+    "tools": null,
+    "category": "פסטיבל",
+    "description": "העולם מנקודת מבטה של תרנגולת שנשלחת לבית כלא אנושי, בסיפור על שיקום הדדי. זוכה Gold ב־Runway AIFF 2025. היוצר מאשר שהוויזואליה נוצרה ב־AI, למעט ציורי הסיום; הכלי לא צוין.",
+    "watchUrl": "https://www.youtube.com/watch?v=-87zR06PkOc",
+    "sourceUrl": "https://aif.runwayml.com/screening-room",
+    "poster": "https://d3phaj0sisr2ct.cloudfront.net/aiff/images/posters/jailbird-poster-1.jpg"
+  },
+  {
+    "id": "003",
+    "title": "Distance Between Two Points Of Me",
+    "creator": "Illya Dutsyk, Bogdan Nesvit, Anatolii Kasianov",
+    "added": "2026-10-08",
+    "tools": null,
+    "category": "פסטיבל",
+    "description": "זיכרון, אחות ובית שאבד: מסע רגשי בין נוכחות להיעדר בעקבות החוויה האוקראינית. נבחר ב־Runway AIFF 2025.",
+    "watchUrl": "https://www.youtube.com/watch?v=SNXiTGAEyV4",
+    "sourceUrl": "https://aif.runwayml.com/screening-room",
+    "poster": "https://d3phaj0sisr2ct.cloudfront.net/aiff/images/posters/distance-poster-1.jpg"
+  },
+  {
+    "id": "004",
+    "title": "More Tears Than Harm",
+    "creator": "Herinarivo Rakotomanana",
+    "added": "2026-10-08",
+    "tools": null,
+    "category": "פסטיבל",
+    "description": "קולאז' חושי של זיכרונות ילדות ממדגסקר שמתערבבים בהווה. נבחר ב־Runway AIFF 2025.",
+    "watchUrl": "https://www.youtube.com/watch?v=Ri--qqBtMD0",
+    "sourceUrl": "https://aif.runwayml.com/screening-room"
+  },
+  {
+    "id": "005",
+    "title": "Fragments Of Nowhere",
+    "creator": "Vallée Duhamel",
+    "added": "2026-10-08",
+    "tools": null,
+    "category": "פסטיבל",
+    "description": "מציאות מתעקמת, חללים זזים וגבולות התפיסה מתפרקים בסרט סוריאליסטי. זוכה Merit ב־Runway AIFF 2025.",
+    "watchUrl": "https://www.youtube.com/watch?v=qzhptlLTTAI",
+    "sourceUrl": "https://aif.runwayml.com/screening-room",
+    "poster": "https://d3phaj0sisr2ct.cloudfront.net/aiff/images/posters/fragments-poster-1.jpg"
+  },
+  {
+    "id": "006",
+    "title": "BRINE",
+    "creator": "Matteo Bernardini",
+    "added": "2026-10-08",
+    "tools": "Seedance · Soul Cinema · Nano Banana Pro",
+    "category": "קהילה",
+    "description": "אגדה אפלה ללא דיאלוג על כפר דייגים ובת ים. הוגש לפסטיבל Higgsfield; לא להציג כזוכה.",
+    "watchUrl": "https://youtu.be/DMlWrLLCuDM",
+    "sourceUrl": "https://www.thedaringcreatives.com/creator-stories/matteo-bernardini-never-shows-whole/"
+  },
+  {
+    "id": "007",
+    "title": "The Stranger",
+    "creator": "Eldar Tusipkaliyev",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Higgsfield",
+    "category": "קהילה",
+    "description": "צעיר בן זמננו נזרק לגרמניה של ימי הביניים; בכל מוות הוא מתקדם עשרות שנים, עד שהוא מוצא שם בית.",
+    "watchUrl": "https://curiousrefuge.com/ai-film-gallery/the-stranger-ai-short-film",
+    "sourceUrl": "https://curiousrefuge.com/ai-film-gallery/the-stranger-ai-short-film"
+  },
+  {
+    "id": "008",
+    "title": "EVERIS",
+    "creator": "Daria Kushnarenko (Liberman)",
+    "added": "2026-10-08",
+    "tools": "Seedance · Kling · Midjourney · Nano Banana",
+    "category": "קהילה",
+    "description": "בעולם מוצף, שני אחים מגלים איך לגדל אדמה מאלמוגים ונאבקים כדי שהידע יהיה נחלת כולם.",
+    "watchUrl": "https://curiousrefuge.com/ai-film-gallery/everis-ai-animated-short-film",
+    "sourceUrl": "https://curiousrefuge.com/ai-film-gallery/everis-ai-animated-short-film"
+  },
+  {
+    "id": "009",
+    "title": "PAOLA",
+    "creator": "Nelson Nguyen",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.0 / 2.5 · Higgsfield",
+    "category": "קהילה",
+    "description": "אותה אישה עוברת דרך שישה עולמות קולנועיים, מסקייטבורד וריקוד ועד אקשן וסמוראים. 1:50 דקות.",
+    "watchUrl": "https://nelsonnguyen.art/",
+    "sourceUrl": "https://nelsonnguyen.art/"
+  },
+  {
+    "id": "010",
+    "title": "The Beat",
+    "creator": "Kling AI",
+    "added": "2026-10-08",
+    "tools": "Kling 4.0",
+    "category": "הדגמה רשמית",
+    "description": "אחרי שמחרימים את כלי הנגינה שלו, מתופף יוצר קצב ממה שנשאר, והעיר נשטפת בצבע.",
+    "watchUrl": "https://www.youtube.com/watch?v=w3397LF5MAc",
+    "sourceUrl": "https://www.youtube.com/watch?v=w3397LF5MAc"
+  }
+]
