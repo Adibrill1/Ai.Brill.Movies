@@ -65,7 +65,7 @@
     "added": "2026-10-08",
     "tools": "Seedance · Soul Cinema · Nano Banana Pro",
     "category": "קהילה",
-    "description": "אגדה אפלה ללא דיאלוג על כפר דייגים ובת ים. הוגש לפסטיבל Higgsfield; לא להציג כזוכה.",
+    "description": "אגדה אפלה ללא דיאלוג על כפר דייגים ובת ים. נוצר עבור תחרות Higgsfield Global Film Festival; לא אומתה זכייה.",
     "watchUrl": "https://youtu.be/DMlWrLLCuDM",
     "sourceUrl": "https://www.thedaringcreatives.com/creator-stories/matteo-bernardini-never-shows-whole/"
   },
@@ -112,5 +112,137 @@
     "description": "אחרי שמחרימים את כלי הנגינה שלו, מתופף יוצר קצב ממה שנשאר, והעיר נשטפת בצבע.",
     "watchUrl": "https://www.youtube.com/watch?v=w3397LF5MAc",
     "sourceUrl": "https://www.youtube.com/watch?v=w3397LF5MAc"
+  },
+  {
+    "id": "011",
+    "title": "Liza",
+    "creator": "Eitan Cohen and Moran Moradi",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Artlist",
+    "category": "פסטיבל",
+    "description": "סרט קומי ומרגש שבו העריכה, הדימויים ועיצוב הסאונד משרתים סיפור מקורי. זוכה Artlist $250K Seedance 2.5 Challenge (2026).",
+    "watchUrl": "https://www.youtube.com/watch?v=k7ClYctOgfI",
+    "sourceUrl": "https://artlist.io/blog/artlist-250k-seedance-2-5-challenge/"
+  },
+  {
+    "id": "012",
+    "title": "The Last Note",
+    "creator": "Ben Keil",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Artlist",
+    "category": "פסטיבל",
+    "description": "רעיון קומי שנבנה מסצנה לסצנה, מנפילת הפסנתר הראשונה ועד הפריים האחרון. זוכה Artlist $250K Seedance 2.5 Challenge (2026).",
+    "watchUrl": "https://www.youtube.com/watch?v=wDCg9CH98oo",
+    "sourceUrl": "https://artlist.io/blog/artlist-250k-seedance-2-5-challenge/"
+  },
+  {
+    "id": "013",
+    "title": "Meteor",
+    "creator": "Auriona.studio",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Artlist",
+    "category": "פסטיבל",
+    "description": "מפגש בין סביבה אפלה וטרגית לדמויות תמימות ומחממות לב. הניגוד יוצר סרט מחוספס ומוחשי. זוכה Artlist $250K Seedance 2.5 Challenge (2026).",
+    "watchUrl": "https://www.youtube.com/watch?v=02lkhvbjMes",
+    "sourceUrl": "https://artlist.io/blog/artlist-250k-seedance-2-5-challenge/"
+  },
+  {
+    "id": "014",
+    "title": "Rosa",
+    "creator": "Mush Dubezki",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Artlist",
+    "category": "פסטיבל",
+    "description": "סיפור מחמם לב שמאיר סוגיות חברתיות דרך עולם AI שנשאר קרוב לחיים. זוכה Artlist $250K Seedance 2.5 Challenge (2026).",
+    "watchUrl": "https://www.youtube.com/watch?v=neoH5lVdxx8",
+    "sourceUrl": "https://artlist.io/blog/artlist-250k-seedance-2-5-challenge/"
+  },
+  {
+    "id": "015",
+    "title": "Pirate",
+    "creator": "Aviv Nachshon",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Artlist",
+    "category": "פסטיבל",
+    "description": "סיפור בעל קול ייחודי, עם שפה חזותית שתואמת את העולם שלו ומושכת את העין כבר מהפריים הראשון. זוכה Artlist $250K Seedance 2.5 Challenge (2026).",
+    "watchUrl": "https://www.youtube.com/watch?v=suI6OECjnoM",
+    "sourceUrl": "https://artlist.io/blog/artlist-250k-seedance-2-5-challenge/"
+  },
+  {
+    "id": "016",
+    "title": "Roosters",
+    "creator": "Nimrod Stiebel",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Artlist",
+    "category": "פסטיבל",
+    "description": "סרט שבו הדמויות, המקום והמראה מתחברים לאותו עולם. Artlist ציינה במיוחד את תחושת המציאות שבו. זוכה Artlist $250K Seedance 2.5 Challenge (2026).",
+    "watchUrl": "https://www.youtube.com/watch?v=6U4-GEXth5E",
+    "sourceUrl": "https://artlist.io/blog/artlist-250k-seedance-2-5-challenge/"
+  },
+  {
+    "id": "017",
+    "title": "BMW M3",
+    "creator": "Jonathan Degueldre",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Artlist",
+    "category": "פסטיבל",
+    "description": "סרט מהיר ומתוח, עם רגעים קומיים שמשתלבים בתוך הקצב. זוכה Artlist $250K Seedance 2.5 Challenge (2026).",
+    "watchUrl": "https://www.youtube.com/watch?v=30O5J-Hjpec",
+    "sourceUrl": "https://artlist.io/blog/artlist-250k-seedance-2-5-challenge/"
+  },
+  {
+    "id": "018",
+    "title": "Taxidermy",
+    "creator": "Netanel Hag",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Artlist",
+    "category": "פסטיבל",
+    "description": "גישה חדשה לסגנון הדוקומנטרי, עם תסריט חד ודמויות מסקרנות. זוכה Artlist $250K Seedance 2.5 Challenge (2026).",
+    "watchUrl": "https://www.youtube.com/watch?v=r8hj7ISW9sI",
+    "sourceUrl": "https://artlist.io/blog/artlist-250k-seedance-2-5-challenge/"
+  },
+  {
+    "id": "019",
+    "title": "Crazy Plants",
+    "creator": "Merav Lev",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Artlist",
+    "category": "פסטיבל",
+    "description": "סרט קומי בסגנון דוקומנטרי, שנשען על דיוק ועל עבודת דמויות. זוכה Artlist $250K Seedance 2.5 Challenge (2026).",
+    "watchUrl": "https://www.youtube.com/watch?v=S_JkxXMacZQ",
+    "sourceUrl": "https://artlist.io/blog/artlist-250k-seedance-2-5-challenge/"
+  },
+  {
+    "id": "020",
+    "title": "Signs",
+    "creator": "AAIRONSTUDIO",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Artlist",
+    "category": "פסטיבל",
+    "description": "סיפור ש-Artlist מתארת ככזה שקשה לספר בקולנוע מסורתי, ונשען על האפשרויות הייחודיות של AI. זוכה Artlist $250K Seedance 2.5 Challenge (2026).",
+    "watchUrl": "https://www.youtube.com/watch?v=uQRxPJnt_uw",
+    "sourceUrl": "https://artlist.io/blog/artlist-250k-seedance-2-5-challenge/"
+  },
+  {
+    "id": "021",
+    "title": "Ed",
+    "creator": "Noadarr",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Artlist",
+    "category": "פסטיבל",
+    "description": "רעיון קומי ודרמטי שמבוצע בביטחון ומשלב בין שני הטונים. זוכה Artlist $250K Seedance 2.5 Challenge (2026).",
+    "watchUrl": "https://www.youtube.com/watch?v=moGBS2w7ftE",
+    "sourceUrl": "https://artlist.io/blog/artlist-250k-seedance-2-5-challenge/"
+  },
+  {
+    "id": "022",
+    "title": "Used Character",
+    "creator": "Flotantte",
+    "added": "2026-10-08",
+    "tools": "Seedance 2.5 · Artlist",
+    "category": "פסטיבל",
+    "description": "אסתטיקה ייחודית ואווירה קודרת, עם תחושה שקשה לנחש מה יקרה בהמשך. זוכה Artlist $250K Seedance 2.5 Challenge (2026).",
+    "watchUrl": "https://www.youtube.com/watch?v=ttWP_AYIaEo",
+    "sourceUrl": "https://artlist.io/blog/artlist-250k-seedance-2-5-challenge/"
   }
 ]
