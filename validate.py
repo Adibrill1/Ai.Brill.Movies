@@ -16,4 +16,9 @@ for film in films:
     for key in ('watchUrl', 'sourceUrl'):
         parsed = urlparse(film[key]); assert parsed.scheme == 'https' and parsed.netloc
     if film.get('poster'): assert film['poster'].startswith(('https://', 'data:image/jpeg;base64,'))
-print(f'OK: {len(films)} films, unique IDs and watch links, valid dates, URLs and local posters.')
+    duration = film.get('durationSeconds')
+    assert duration is None or (type(duration) is int and 0 < duration < 86400), (film['id'], 'durationSeconds')
+    if film.get('posterFallback'):
+        parsed = urlparse(film['posterFallback']); assert parsed.scheme == 'https' and parsed.netloc
+known_durations = sum(film.get('durationSeconds') is not None for film in films)
+print(f'OK: {len(films)} films, unique IDs and watch links, valid dates, URLs and images; {known_durations} film durations supplied.')

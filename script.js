@@ -52,7 +52,8 @@ function externalLink(label, url, className, filmTitle) {
 function card(film) {
   const article = node('article', undefined, 'card');
   article.id = `film-${film.id}`;
-  const photo = node('div', undefined, 'film-photo');
+  const preferences = FilmEditor.get(film.id);
+  const photo = externalLink('לצפייה בסרט', film.watchUrl, 'film-photo', film.title);
   const media = node('div', undefined, 'film-media');
   const color = [...film.id].reduce((sum, char) => sum + char.charCodeAt(0), 0) % 5;
   const art = node('div', undefined, `paper-art art-${color}`);
@@ -63,16 +64,16 @@ function card(film) {
   artCaption.dir = 'ltr';
   art.append(artTitle, artCaption);
   media.append(art);
-  if (film.poster) {
+  const poster = preferences.poster || film.poster;
+  if (poster) {
     const image = node('img', undefined, 'poster');
     image.alt = `תמונה מתוך ${film.title}`;
     image.loading = 'lazy';
     image.decoding = 'async';
-    let fallbackUsed = false;
+    const fallbacks = [preferences.poster && film.poster, film.posterFallback].filter(Boolean);
     function useFallback() {
-      if (film.posterFallback && !fallbackUsed) {
-        fallbackUsed = true;
-        image.src = film.posterFallback;
+      if (fallbacks.length) {
+        image.src = fallbacks.shift();
       } else {
         image.remove();
       }
@@ -80,14 +81,34 @@ function card(film) {
     image.addEventListener('error', useFallback);
     image.addEventListener('load', () => {
       // YouTube may return a small placeholder with HTTP 200.
-      if (image.naturalWidth <= 120) useFallback();
+      if (image.naturalWidth <= 120 && /\/maxresdefault\.jpg(?:\?|$)/.test(image.src)) useFallback();
     });
-    image.src = film.poster;
+    image.src = poster;
     media.append(image);
   }
+  const photoPlay = node('span', '▷', 'photo-play');
+  photoPlay.setAttribute('aria-hidden', 'true');
+  media.append(photoPlay);
   const number = node('span', `NO. ${film.id}`, 'film-number');
   number.dir = 'ltr';
   photo.append(media, number);
+  const details = node('div', undefined, 'film-details');
+  const seconds = Object.hasOwn(preferences, 'durationSeconds') ? preferences.durationSeconds : film.durationSeconds;
+  const duration = node('span', undefined, 'film-duration');
+  if (Number.isInteger(seconds) && seconds > 0) {
+    const time = node('time', FilmEditor.formatTime(seconds));
+    time.dateTime = `PT${seconds}S`;
+    time.dir = 'ltr';
+    duration.append(document.createTextNode('אורך הסרט: '), time);
+  } else {
+    duration.textContent = 'אורך הסרט טרם צוין';
+    duration.classList.add('duration-unknown');
+  }
+  const edit = node('button', 'בחירת פריים ומשך', 'edit-film');
+  edit.type = 'button';
+  edit.setAttribute('aria-label', `בחירת פריים ומשך — ${film.title}`);
+  edit.addEventListener('click', () => FilmEditor.open(film));
+  details.append(duration, edit);
   const body = node('div', undefined, 'card-body');
   const top = node('div', undefined, 'topline');
   const categoryClass = film.category === 'קהילה' ? 'community' : film.category === 'הדגמה רשמית' ? 'official' : 'festival';
@@ -110,7 +131,7 @@ function card(film) {
   source.append(document.createTextNode('מקור ומידע '), arrowIcon());
   actions.append(watch, source);
   body.append(top, title, creator, node('p', film.description, 'blurb'), tool, actions);
-  article.append(photo, body);
+  article.append(photo, details, body);
   return article;
 }
 
@@ -197,7 +218,7 @@ async function loadFilms() {
   loading = true;
   document.querySelector('#load-error').hidden = true;
   try {
-    const response = await fetch('films.json', { cache: 'no-cache' });
+    const [response] = await Promise.all([fetch('films.json', { cache: 'no-cache' }), FilmEditor.ready]);
     if (!response.ok) throw new Error('Film data could not be loaded');
     const data = await response.json();
     if (!Array.isArray(data)) throw new Error('Film data must be a list');
@@ -228,5 +249,10 @@ document.querySelector('.skip').addEventListener('click', event => {
   document.querySelector('#main').focus();
 });
 window.addEventListener('hashchange', () => navigate(true));
+window.addEventListener('film-preferences-changed', event => {
+  render();
+  const article = document.getElementById(`film-${event.detail.id}`);
+  article?.querySelector('.edit-film')?.focus({ preventScroll: true });
+});
 navigate();
 loadFilms();

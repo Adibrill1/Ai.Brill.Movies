@@ -9,6 +9,7 @@
   <link rel="preload" href="assets/fonts/heebo.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="assets/fonts/amatic-hebrew.woff" as="font" type="font/woff" crossorigin>
   <link rel="stylesheet" href="style.css">
+  <script src="film-editor.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -58,6 +59,7 @@
           <div class="sort-field"><label for="sort">לסדר לפי</label><select id="sort"><option value="newest">החדשים קודם</option><option value="title">שם הסרט</option><option value="oldest">הוותיקים קודם</option></select></div>
         </section>
         <div class="filter-summary"><p id="page-note">כל סרט הוא עולם קטן.</p><button id="reset" type="button" hidden>ניקוי החיפוש <span aria-hidden="true">×</span></button></div>
+        <details class="personal-settings"><summary>הבחירות האישיות שלי</summary><p>הפריימים והמשכים שתערכי נשמרים בדפדפן הזה. אפשר לגבות אותם לקובץ ולהעביר למכשיר אחר.</p><div class="backup-actions"><button id="export-preferences" type="button">הורדת גיבוי</button><label class="file-button" for="import-preferences">טעינת גיבוי</label><input id="import-preferences" class="visually-hidden" type="file" accept="application/json,.json"></div><p id="preferences-status" role="status" aria-live="polite"></p></details>
         <div id="empty" class="empty-state" hidden><span class="empty-doodle" aria-hidden="true">⌕</span><h2>עוד לא כתוב כאן סיפור כזה.</h2><p>אפשר לנסות שם אחר או לפתוח עמוד אחר במחברת.</p></div>
         <div id="grid" class="grid"></div>
         <div class="collection-end"><span aria-hidden="true">✳︎</span> סוף העמוד, בינתיים.</div>
@@ -66,6 +68,19 @@
       <noscript><p class="noscript">כדי לדפדף במחברת יש להפעיל JavaScript. אפשר גם לפתוח את <a href="films.json">רשימת הסרטים המלאה</a>.</p></noscript>
     </main>
   </div>
+  <dialog id="film-editor" aria-labelledby="editor-title" aria-describedby="editor-storage-note">
+    <form id="editor-form">
+      <div class="editor-header"><div><span class="eyebrow">הכרטיס שלי במחברת</span><h2 id="editor-title">בחירת פריים</h2><p id="editor-film-title" dir="auto"></p></div><button id="close-editor" class="close-editor" type="button" aria-label="סגירת בורר הפריימים">×</button></div>
+      <p id="editor-storage-note" class="editor-note">הבחירה נשמרת בדפדפן הזה. אפשר לגבות אותה דרך ״הבחירות האישיות שלי״.</p>
+      <fieldset id="frame-presets"><legend>תמונות זמינות מתוך הסרט</legend><p class="field-hint">ב־YouTube אפשר לבחור אחת מתמונות הפריימים הזמינות. לבחירת רגע מדויק, טעני קובץ וידאו בהמשך.</p><div id="frame-options" class="frame-options"></div></fieldset>
+      <section class="video-frame-picker" aria-labelledby="video-frame-title"><h3 id="video-frame-title">לבחור רגע מדויק</h3><p class="field-hint">בחרי קובץ של הסרט, עצרי ברגע שאהבת ולחצי על ״בחירת הפריים הזה״. הקובץ נשאר במכשיר שלך.</p><label class="file-button" for="frame-video-file">בחירת קובץ וידאו</label><input id="frame-video-file" class="visually-hidden" type="file" accept="video/*"><div id="video-controls" hidden><video id="frame-video" controls playsinline muted preload="metadata"></video><label for="frame-position">מיקום בסרט <output id="frame-time" dir="ltr">0:00</output></label><input id="frame-position" type="range" min="0" max="1" step="0.04" value="0" disabled><button id="capture-frame" type="button" disabled>בחירת הפריים הזה</button></div></section>
+      <div class="saved-frame-input"><label class="file-button" for="frame-image-file">בחירת פריים שכבר שמרתי כתמונה</label><input id="frame-image-file" class="visually-hidden" type="file" accept="image/jpeg,image/png,image/webp"></div>
+      <div id="selected-frame" class="selected-frame" hidden><img id="frame-preview" alt="הפריים שנבחר לכרטיס"><span id="frame-selection-label">התמונה שנבחרה</span></div>
+      <div class="duration-field"><label for="film-duration">אורך הסרט</label><input id="film-duration" type="text" dir="ltr" inputmode="text" placeholder="02:35" maxlength="9" aria-describedby="duration-hint"><small id="duration-hint">דקות:שניות, למשל 02:35. לסרט ארוך: שעות:דקות:שניות.</small></div>
+      <p id="editor-message" class="editor-message" role="status" aria-live="polite"></p>
+      <div class="editor-actions"><button id="save-film-preferences" type="submit">שמירה בכרטיס</button><button id="restore-film-defaults" type="button">חזרה לתמונה ולמשך המקוריים</button></div>
+    </form>
+  </dialog>
   <footer class="desk-footer"><p>הסרטים שייכים ליוצרים. כאן נשמרים הסיפורים והקישורים.</p><details><summary>הערות בשולי המחברת</summary><p>התאריך הוא תאריך ההוספה למחברת, ולא שנת ההפקה. כלי שלא אומת מסומן במפורש. פוסטרים: Runway AI Film Festival. תמונות מקדימות: סרטי YouTube ועמוד היוצר של PAOLA. בחירה בפסטיבל אינה מעידה על הכלי שבו נוצר הסרט.</p></details><span dir="ltr">Made for curious eyes.</span></footer>
 </body>
 </html>
