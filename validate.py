@@ -15,5 +15,8 @@ for film in films:
     assert film['tools'] is None or isinstance(film['tools'], str)
     for key in ('watchUrl', 'sourceUrl'):
         parsed = urlparse(film[key]); assert parsed.scheme == 'https' and parsed.netloc
+    if film.get('durationSeconds') is not None:
+        assert isinstance(film['durationSeconds'], int) and film['durationSeconds'] > 0
+        assert film['durationSource'].startswith('https://')
     if film.get('poster'): assert film['poster'].startswith(('https://', 'data:image/jpeg;base64,'))
 print(f'OK: {len(films)} films, unique IDs and watch links, valid dates, URLs and local posters.')
