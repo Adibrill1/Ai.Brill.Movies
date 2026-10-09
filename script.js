@@ -2,20 +2,26 @@
 
 const pages = {
   home: { title: 'תוכן העניינים', number: '01' },
-  all: { title: 'כל הסרטים', subtitle: 'כל הסיפורים, במקום אחד', number: '02' },
-  festival: { title: 'סרטי פסטיבלים', subtitle: 'סרטים שנבחרו לבמה הגדולה', category: 'פסטיבל', number: '03' },
-  community: { title: 'יצירה מהקהילה', subtitle: 'יוצרים עצמאיים, רעיונות אישיים', category: 'קהילה', number: '04' },
-  official: { title: 'כלים ויצירה', subtitle: 'הדגמות רשמיות ואפשרויות חדשות', category: 'הדגמה רשמית', number: '05' }
+  new: { title: 'חדש', subtitle: 'הסרטים מהתוספת האחרונה למחברת', latest: true, number: '02' },
+  all: { title: 'כל הסרטים', subtitle: 'כל הסיפורים, במקום אחד', number: '03' },
+  festival: { title: 'סרטי פסטיבלים', subtitle: 'סרטים שנבחרו לבמה הגדולה', category: 'פסטיבל', number: '04' },
+  community: { title: 'יצירה מהקהילה', subtitle: 'יוצרים עצמאיים, רעיונות אישיים', category: 'קהילה', number: '05' },
+  official: { title: 'כלים ויצירה', subtitle: 'הדגמות רשמיות ואפשרויות חדשות', category: 'הדגמה רשמית', number: '06' }
 };
 const grid = document.querySelector('#grid');
 const search = document.querySelector('#search');
 const sort = document.querySelector('#sort');
 let films = [];
+let latestAdded = '';
 let loaded = false;
 let loading = false;
 let activePage = 'home';
 let selectedFilm = null;
 const dateLabel = iso => iso.split('-').reverse().join('.');
+
+function belongsToPage(film, page) {
+  return page.latest ? film.added === latestAdded : !page.category || film.category === page.category;
+}
 
 function arrowIcon() {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -70,20 +76,7 @@ function card(film) {
     image.alt = `תמונה מתוך ${film.title}`;
     image.loading = 'lazy';
     image.decoding = 'async';
-    const fallbacks = [preferences.poster && film.poster, film.posterFallback].filter(Boolean);
-    function useFallback() {
-      if (fallbacks.length) {
-        image.src = fallbacks.shift();
-      } else {
-        image.remove();
-      }
-    }
-    image.addEventListener('error', useFallback);
-    image.addEventListener('load', () => {
-      // YouTube may return a small placeholder with HTTP 200.
-      if (image.naturalWidth <= 120 && /\/maxresdefault\.jpg(?:\?|$)/.test(image.src)) useFallback();
-    });
-    image.src = poster;
+    FilmImages.load(image, [poster, preferences.poster && film.poster, film.posterFallback], { onExhausted: () => image.remove() });
     media.append(image);
   }
   const photoPlay = node('span', '▷', 'photo-play');
@@ -93,13 +86,14 @@ function card(film) {
   number.dir = 'ltr';
   photo.append(media, number);
   const details = node('div', undefined, 'film-details');
-  const seconds = Object.hasOwn(preferences, 'durationSeconds') ? preferences.durationSeconds : film.durationSeconds;
+  const seconds = preferences.durationSeconds ?? film.durationSeconds;
   const duration = node('span', undefined, 'film-duration');
   if (Number.isInteger(seconds) && seconds > 0) {
     const time = node('time', FilmEditor.formatTime(seconds));
     time.dateTime = `PT${seconds}S`;
     time.dir = 'ltr';
-    duration.append(document.createTextNode('אורך הסרט: '), time);
+    duration.append(document.createTextNode('משך צפייה: '), time);
+    duration.title = 'אורך גרסת הסרט המקושרת לצפייה';
   } else {
     duration.textContent = 'אורך הסרט טרם צוין';
     duration.classList.add('duration-unknown');
@@ -141,7 +135,7 @@ function updateContents() {
   document.querySelector('#last-updated').textContent = latest.length ? `תוספת אחרונה · ${dateLabel(latest[0].added)}` : 'הסיפור הראשון עוד לפנינו';
   document.querySelectorAll('[data-count]').forEach(element => {
     const page = pages[element.dataset.count];
-    const count = films.filter(film => !page.category || film.category === page.category).length;
+    const count = films.filter(film => belongsToPage(film, page)).length;
     element.textContent = count;
     element.setAttribute('aria-label', `${count} סרטים`);
   });
@@ -159,7 +153,8 @@ function render() {
   if (activePage === 'home') return;
   const page = pages[activePage];
   const query = search.value.trim().toLocaleLowerCase();
-  const inPage = films.filter(film => !page.category || film.category === page.category);
+  const inPage = films.filter(film => belongsToPage(film, page));
+  document.querySelector('#collection-eyebrow').textContent = page.latest && latestAdded ? `נוספו למחברת ב־${dateLabel(latestAdded)}` : page.subtitle;
   const visible = inPage.filter(film => [film.title, film.creator, film.tools || '', film.description, film.category].join(' ').toLocaleLowerCase().includes(query));
   visible.sort((a, b) => sort.value === 'title' ? a.title.localeCompare(b.title) : sort.value === 'oldest' ? -newestFirst(a, b) : newestFirst(a, b));
   grid.replaceChildren(...visible.map(card));
@@ -223,6 +218,7 @@ async function loadFilms() {
     const data = await response.json();
     if (!Array.isArray(data)) throw new Error('Film data must be a list');
     films = data;
+    latestAdded = films.reduce((date, film) => film.added > date ? film.added : date, '');
     loaded = true;
     updateContents();
     render();

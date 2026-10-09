@@ -18,6 +18,8 @@ for film in films:
     if film.get('poster'): assert film['poster'].startswith(('https://', 'data:image/jpeg;base64,'))
     duration = film.get('durationSeconds')
     assert duration is None or (type(duration) is int and 0 < duration < 86400), (film['id'], 'durationSeconds')
+    if film.get('durationSource'):
+        parsed = urlparse(film['durationSource']); assert parsed.scheme == 'https' and parsed.netloc
     if film.get('posterFallback'):
         parsed = urlparse(film['posterFallback']); assert parsed.scheme == 'https' and parsed.netloc
 known_durations = sum(film.get('durationSeconds') is not None for film in films)

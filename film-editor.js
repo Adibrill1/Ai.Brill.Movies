@@ -112,10 +112,11 @@ window.FilmEditor = (() => {
 
   function selectPoster(src, label) {
     selectedPoster = src;
-    preview.src = src;
+    preview.hidden = false;
+    FilmImages.load(preview, [src], { onExhausted: () => { preview.hidden = true; } });
     document.querySelector('#selected-frame').hidden = false;
     document.querySelector('#frame-selection-label').textContent = label;
-    document.querySelectorAll('.frame-choice').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.src === src)));
+    document.querySelectorAll('.frame-choice').forEach(button => button.setAttribute('aria-pressed', String(FilmImages.key(button.dataset.src) === FilmImages.key(src))));
   }
 
   function makeChoice(src, label) {
@@ -123,21 +124,23 @@ window.FilmEditor = (() => {
     button.type = 'button';
     button.className = 'frame-choice';
     button.dataset.src = src;
-    button.setAttribute('aria-pressed', String(src === selectedPoster));
+    button.setAttribute('aria-pressed', String(FilmImages.key(src) === FilmImages.key(selectedPoster)));
     const image = document.createElement('img');
-    image.src = src;
     image.alt = '';
-    image.addEventListener('error', () => {
-      button.disabled = true;
-      button.title = 'התמונה אינה זמינה כרגע';
-      image.hidden = true;
-      text.textContent = `${label} — לא זמין`;
-    }, { once: true });
     const text = document.createElement('span');
     text.textContent = label;
+    FilmImages.load(image, [src], {
+      onReady: resolved => { button.dataset.src = resolved; },
+      onExhausted: () => {
+        button.disabled = true;
+        button.title = 'התמונה אינה זמינה כרגע';
+        image.hidden = true;
+        text.textContent = `${label} — לא זמין`;
+      }
+    });
     button.append(image, text);
     button.addEventListener('click', () => {
-      selectPoster(src, label);
+      selectPoster(button.dataset.src, label);
       showMessage('הפריים נבחר. לחצי על ״שמירה בכרטיס״ כדי לשמור.');
     });
     return button;
@@ -163,7 +166,7 @@ window.FilmEditor = (() => {
     selectedPoster = current.poster || film.poster || null;
     form.reset();
     document.querySelector('#editor-film-title').textContent = film.title;
-    const seconds = Object.hasOwn(current, 'durationSeconds') ? current.durationSeconds : film.durationSeconds;
+    const seconds = current.durationSeconds ?? film.durationSeconds;
     duration.value = seconds ? formatTime(seconds) : '';
     duration.setCustomValidity('');
     document.querySelector('#selected-frame').hidden = !selectedPoster;
@@ -172,7 +175,7 @@ window.FilmEditor = (() => {
     options.replaceChildren();
     if (film.poster) options.append(makeChoice(film.poster, 'התמונה המקורית'));
     const id = youtubeId(film);
-    if (id) for (let index = 1; index <= 3; index++) options.append(makeChoice(`https://img.youtube.com/vi/${id}/${index}.jpg`, `פריים ${index}`));
+    if (id) for (let index = 1; index <= 3; index++) options.append(makeChoice(`https://img.youtube.com/vi/${id}/maxres${index}.jpg`, `פריים ${index}`));
     document.querySelector('#frame-presets').hidden = !id;
     showMessage(storageAvailable ? '' : 'הדפדפן אינו מאפשר שמירה כרגע. אפשר לאפשר אחסון לאתר ולרענן, או להשתמש בדפדפן אחר.', !storageAvailable);
     save.disabled = !storageAvailable;
@@ -244,12 +247,12 @@ window.FilmEditor = (() => {
   position.addEventListener('input', () => { video.pause(); video.currentTime = Number(position.value); });
 
   function snapshot(source, width, height) {
-    const scale = Math.min(1, 1280 / Math.max(width, height));
+    const scale = Math.min(1, 1920 / Math.max(width, height));
     const canvas = document.createElement('canvas');
     canvas.width = Math.max(1, Math.round(width * scale));
     canvas.height = Math.max(1, Math.round(height * scale));
     canvas.getContext('2d').drawImage(source, 0, 0, canvas.width, canvas.height);
-    return canvas.toDataURL('image/jpeg', 0.9);
+    return canvas.toDataURL('image/jpeg', 0.95);
   }
   capture.addEventListener('click', () => {
     if (video.readyState < 2 || !video.videoWidth || video.seeking) return;

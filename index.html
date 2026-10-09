@@ -9,6 +9,7 @@
   <link rel="preload" href="assets/fonts/heebo.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="assets/fonts/amatic-hebrew.woff" as="font" type="font/woff" crossorigin>
   <link rel="stylesheet" href="style.css">
+  <script src="film-images.js" defer></script>
   <script src="film-editor.js" defer></script>
   <script src="script.js" defer></script>
 </head>
@@ -21,6 +22,7 @@
   <div class="notebook-wrap">
     <nav class="page-tabs" aria-label="דפי המחברת">
       <a href="#home" data-page="home" class="tab tab-home" aria-current="page">תוכן עניינים</a>
+      <a href="#new" data-page="new" class="tab tab-new">חדש</a>
       <a href="#all" data-page="all" class="tab tab-all">כל הסרטים</a>
       <a href="#festival" data-page="festival" class="tab tab-festival">פסטיבלים</a>
       <a href="#community" data-page="community" class="tab tab-community">קהילה</a>
@@ -40,10 +42,11 @@
           <div class="contents-page">
             <div class="contents-heading"><span class="eyebrow">מאיפה מתחילים?</span><h2>תוכן העניינים</h2><svg class="hand-arrow" aria-hidden="true" viewBox="0 0 42 42"><path d="M9 4c27 0 26 24 1 30m0 0 3-12m-3 12 13 1"/></svg></div>
             <nav class="contents" aria-label="תוכן העניינים">
-              <a class="contents-row" href="#all"><span class="contents-swatch swatch-all" aria-hidden="true"></span><span class="contents-label">כל הסרטים<small>כל הסיפורים, במקום אחד</small></span><span class="contents-count" data-count="all">—</span><span class="contents-number">02</span></a>
-              <a class="contents-row" href="#festival"><span class="contents-swatch swatch-festival" aria-hidden="true"></span><span class="contents-label">סרטי פסטיבלים<small>סרטים שנבחרו לבמה הגדולה</small></span><span class="contents-count" data-count="festival">—</span><span class="contents-number">03</span></a>
-              <a class="contents-row" href="#community"><span class="contents-swatch swatch-community" aria-hidden="true"></span><span class="contents-label">יצירה מהקהילה<small>יוצרים עצמאיים, רעיונות אישיים</small></span><span class="contents-count" data-count="community">—</span><span class="contents-number">04</span></a>
-              <a class="contents-row" href="#official"><span class="contents-swatch swatch-official" aria-hidden="true"></span><span class="contents-label">כלים ויצירה<small>הדגמות רשמיות ואפשרויות חדשות</small></span><span class="contents-count" data-count="official">—</span><span class="contents-number">05</span></a>
+              <a class="contents-row" href="#new"><span class="contents-swatch swatch-new" aria-hidden="true"></span><span class="contents-label">חדש<small>הסרטים מהתוספת האחרונה למחברת</small></span><span class="contents-count" data-count="new">—</span><span class="contents-number">02</span></a>
+              <a class="contents-row" href="#all"><span class="contents-swatch swatch-all" aria-hidden="true"></span><span class="contents-label">כל הסרטים<small>כל הסיפורים, במקום אחד</small></span><span class="contents-count" data-count="all">—</span><span class="contents-number">03</span></a>
+              <a class="contents-row" href="#festival"><span class="contents-swatch swatch-festival" aria-hidden="true"></span><span class="contents-label">סרטי פסטיבלים<small>סרטים שנבחרו לבמה הגדולה</small></span><span class="contents-count" data-count="festival">—</span><span class="contents-number">04</span></a>
+              <a class="contents-row" href="#community"><span class="contents-swatch swatch-community" aria-hidden="true"></span><span class="contents-label">יצירה מהקהילה<small>יוצרים עצמאיים, רעיונות אישיים</small></span><span class="contents-count" data-count="community">—</span><span class="contents-number">05</span></a>
+              <a class="contents-row" href="#official"><span class="contents-swatch swatch-official" aria-hidden="true"></span><span class="contents-label">כלים ויצירה<small>הדגמות רשמיות ואפשרויות חדשות</small></span><span class="contents-count" data-count="official">—</span><span class="contents-number">06</span></a>
             </nav>
             <div class="legend"><h3>מקרא קטן</h3><div class="legend-items"><span><b aria-hidden="true">▷</b> לצפייה בסרט</span><span><svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></svg> למקור ולפרטים</span><span><b aria-hidden="true">＋</b> תאריך ההוספה</span></div></div>
             <section class="recent" aria-labelledby="recent-title"><div class="recent-heading"><h3 id="recent-title">בעמודים האחרונים</h3><span>נוספו לאחרונה</span></div><div id="recent-films"><p class="loading-copy" role="status">פותחים את המחברת…</p></div></section>
@@ -52,7 +55,7 @@
         <div class="page-footer"><span>מחברת פתוחה, אוסף שגדל.</span><span class="page-number">01 <span aria-hidden="true">/</span> תוכן העניינים</span></div>
       </section>
       <section id="collection-page" aria-labelledby="collection-title" hidden>
-        <div class="collection-topline"><a class="back-link" href="#home"><span aria-hidden="true">→</span> לתוכן העניינים</a><span class="chapter-label" id="chapter-label">פרק 02</span></div>
+        <div class="collection-topline"><a class="back-link" href="#home"><span aria-hidden="true">→</span> לתוכן העניינים</a><span class="chapter-label" id="chapter-label">פרק 03</span></div>
         <header class="collection-heading"><div><span class="eyebrow" id="collection-eyebrow">כל הסיפורים, במקום אחד</span><h1 id="collection-title" tabindex="-1">כל הסרטים</h1></div><p id="count" role="status" aria-live="polite"></p></header>
         <section class="controls" aria-label="חיפוש ומיון סרטים">
           <div class="search-field"><label for="search" class="visually-hidden">חיפוש לפי שם סרט, יוצר או כלי</label><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5"></path></svg><input type="search" id="search" placeholder="לחפש בין הדפים… שם סרט, יוצר או כלי"></div>
@@ -63,7 +66,7 @@
         <div id="empty" class="empty-state" hidden><span class="empty-doodle" aria-hidden="true">⌕</span><h2>עוד לא כתוב כאן סיפור כזה.</h2><p>אפשר לנסות שם אחר או לפתוח עמוד אחר במחברת.</p></div>
         <div id="grid" class="grid"></div>
         <div class="collection-end"><span aria-hidden="true">✳︎</span> סוף העמוד, בינתיים.</div>
-        <div class="page-footer"><a href="#home">בחזרה לתוכן העניינים</a><span class="page-number" id="collection-page-number">02</span></div>
+        <div class="page-footer"><a href="#home">בחזרה לתוכן העניינים</a><span class="page-number" id="collection-page-number">03</span></div>
       </section>
       <noscript><p class="noscript">כדי לדפדף במחברת יש להפעיל JavaScript. אפשר גם לפתוח את <a href="films.json">רשימת הסרטים המלאה</a>.</p></noscript>
     </main>
@@ -81,6 +84,6 @@
       <div class="editor-actions"><button id="save-film-preferences" type="submit">שמירה בכרטיס</button><button id="restore-film-defaults" type="button">חזרה לתמונה ולמשך המקוריים</button></div>
     </form>
   </dialog>
-  <footer class="desk-footer"><p>הסרטים שייכים ליוצרים. כאן נשמרים הסיפורים והקישורים.</p><details><summary>הערות בשולי המחברת</summary><p>התאריך הוא תאריך ההוספה למחברת, ולא שנת ההפקה. כלי שלא אומת מסומן במפורש. פוסטרים: Runway AI Film Festival. תמונות מקדימות: סרטי YouTube ועמוד היוצר של PAOLA. בחירה בפסטיבל אינה מעידה על הכלי שבו נוצר הסרט.</p></details><span dir="ltr">Made for curious eyes.</span></footer>
+  <footer class="desk-footer"><p>הסרטים שייכים ליוצרים. כאן נשמרים הסיפורים והקישורים.</p><details><summary>הערות בשולי המחברת</summary><p>התאריך הוא תאריך ההוספה למחברת, ולא שנת ההפקה. משך הצפייה הוא של גרסת הסרט המקושרת; לגרסאות אחרות עשוי להיות אורך שונה. כלי שלא אומת מסומן במפורש. פוסטרים: Runway AI Film Festival. תמונות מקדימות: סרטי YouTube ועמוד היוצר של PAOLA. בחירה בפסטיבל אינה מעידה על הכלי שבו נוצר הסרט.</p></details><span dir="ltr">Made for curious eyes.</span></footer>
 </body>
 </html>
