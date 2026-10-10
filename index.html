@@ -27,6 +27,7 @@
       <a href="#festival" data-page="festival" class="tab tab-festival">פסטיבלים</a>
       <a href="#community" data-page="community" class="tab tab-community">קהילה</a>
       <a href="#official" data-page="official" class="tab tab-official">כלים ויצירה</a>
+      <a href="#disliked" data-page="disliked" class="tab tab-disliked">פחות אהבתי</a>
     </nav>
     <main id="main" class="notebook" tabindex="-1">
       <div class="binding" aria-hidden="true"></div>
@@ -47,6 +48,7 @@
               <a class="contents-row" href="#festival"><span class="contents-swatch swatch-festival" aria-hidden="true"></span><span class="contents-label">סרטי פסטיבלים<small>סרטים שנבחרו לבמה הגדולה</small></span><span class="contents-count" data-count="festival">—</span><span class="contents-number">04</span></a>
               <a class="contents-row" href="#community"><span class="contents-swatch swatch-community" aria-hidden="true"></span><span class="contents-label">יצירה מהקהילה<small>יוצרים עצמאיים, רעיונות אישיים</small></span><span class="contents-count" data-count="community">—</span><span class="contents-number">05</span></a>
               <a class="contents-row" href="#official"><span class="contents-swatch swatch-official" aria-hidden="true"></span><span class="contents-label">כלים ויצירה<small>הדגמות רשמיות ואפשרויות חדשות</small></span><span class="contents-count" data-count="official">—</span><span class="contents-number">06</span></a>
+              <a class="contents-row" href="#disliked"><span class="contents-swatch swatch-disliked" aria-hidden="true"></span><span class="contents-label">פחות אהבתי<small>סרטים שהעברתי לכאן</small></span><span class="contents-count" data-count="disliked">—</span><span class="contents-number">07</span></a>
             </nav>
             <div class="legend"><h3>מקרא קטן</h3><div class="legend-items"><span><b aria-hidden="true">▷</b> לצפייה בסרט</span><span><svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></svg> למקור ולפרטים</span><span><b aria-hidden="true">＋</b> תאריך ההוספה</span></div></div>
             <section class="recent" aria-labelledby="recent-title"><div class="recent-heading"><h3 id="recent-title">בעמודים האחרונים</h3><span>נוספו לאחרונה</span></div><div id="recent-films"><p class="loading-copy" role="status">פותחים את המחברת…</p></div></section>
@@ -62,8 +64,9 @@
           <div class="sort-field"><label for="sort">לסדר לפי</label><select id="sort"><option value="newest">החדשים קודם</option><option value="title">שם הסרט</option><option value="oldest">הוותיקים קודם</option></select></div>
         </section>
         <div class="filter-summary"><p id="page-note">כל סרט הוא עולם קטן.</p><button id="reset" type="button" hidden>ניקוי החיפוש <span aria-hidden="true">×</span></button></div>
-        <details class="personal-settings"><summary>הבחירות האישיות שלי</summary><p>הפריימים והמשכים שתערכי נשמרים בדפדפן הזה. אפשר לגבות אותם לקובץ ולהעביר למכשיר אחר.</p><div class="backup-actions"><button id="export-preferences" type="button">הורדת גיבוי</button><label class="file-button" for="import-preferences">טעינת גיבוי</label><input id="import-preferences" class="visually-hidden" type="file" accept="application/json,.json"></div><p id="preferences-status" role="status" aria-live="polite"></p></details>
+        <details class="personal-settings"><summary>הבחירות האישיות שלי</summary><p>הקטגוריות, הפריימים והמשכים שתערכי נשמרים בדפדפן הזה. אפשר לגבות אותם לקובץ ולהעביר למכשיר אחר.</p><div class="backup-actions"><button id="export-preferences" type="button">הורדת גיבוי</button><label class="file-button" for="import-preferences">טעינת גיבוי</label><input id="import-preferences" class="visually-hidden" type="file" accept="application/json,.json"></div><p id="preferences-status" role="status" aria-live="polite"></p></details>
         <div id="empty" class="empty-state" hidden><span class="empty-doodle" aria-hidden="true">⌕</span><h2>עוד לא כתוב כאן סיפור כזה.</h2><p>אפשר לנסות שם אחר או לפתוח עמוד אחר במחברת.</p></div>
+        <p id="move-status" class="move-status" role="status" aria-live="polite"></p>
         <div id="grid" class="grid"></div>
         <div class="collection-end"><span aria-hidden="true">✳︎</span> סוף העמוד, בינתיים.</div>
         <div class="page-footer"><a href="#home">בחזרה לתוכן העניינים</a><span class="page-number" id="collection-page-number">03</span></div>

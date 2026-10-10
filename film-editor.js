@@ -2,6 +2,7 @@
 
 // Personal choices stay in this browser. Only an explicit export creates a file.
 window.FilmEditor = (() => {
+  const categories = ['חדש', 'פסטיבל', 'קהילה', 'הדגמה רשמית', 'פחות אהבתי'];
   const choices = new Map();
   let database;
   let storageAvailable = true;
@@ -38,6 +39,10 @@ window.FilmEditor = (() => {
       const duration = record.durationSeconds;
       if (duration !== null && (!Number.isInteger(duration) || duration <= 0 || duration >= 86400)) throw new Error('Invalid duration');
       clean.durationSeconds = duration;
+    }
+    if (Object.hasOwn(record, 'category')) {
+      if (!categories.includes(record.category)) throw new Error('Invalid category');
+      clean.category = record.category;
     }
     return clean;
   }
@@ -195,6 +200,8 @@ window.FilmEditor = (() => {
     catch (error) { showMessage(error.message, true); duration.focus(); return; }
     const id = activeFilm.id;
     const record = { id };
+    const category = choices.get(id)?.category;
+    if (category) record.category = category;
     if (selectedPoster && selectedPoster !== activeFilm.poster) record.poster = selectedPoster;
     if (seconds !== (activeFilm.durationSeconds || null)) record.durationSeconds = seconds;
     save.disabled = restore.disabled = true;
@@ -210,7 +217,13 @@ window.FilmEditor = (() => {
 
   restore.addEventListener('click', async () => {
     save.disabled = restore.disabled = true;
-    try { const id = activeFilm.id; await persist([], id); announceChange(id); }
+    try {
+      const id = activeFilm.id;
+      const category = choices.get(id)?.category;
+      if (category) await persist([{ id, category }]);
+      else await persist([], id);
+      announceChange(id);
+    }
     catch { showMessage('לא הצלחנו לשחזר את ברירת המחדל. נסי שוב.', true); }
     finally { save.disabled = restore.disabled = !storageAvailable; }
   });
@@ -309,5 +322,11 @@ window.FilmEditor = (() => {
     input.value = '';
   });
 
-  return { ready, open, formatTime, get: id => choices.get(id) || {} };
+  async function move(id, category) {
+    await ready;
+    await persist([validateRecord({ ...choices.get(id), id, category })]);
+    window.dispatchEvent(new CustomEvent('film-preferences-changed', { detail: { id, moved: true } }));
+  }
+
+  return { ready, open, formatTime, move, categories, get: id => choices.get(id) || {} };
 })();

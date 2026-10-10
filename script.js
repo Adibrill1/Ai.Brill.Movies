@@ -6,7 +6,8 @@ const pages = {
   all: { title: 'כל הסרטים', subtitle: 'כל הסיפורים, במקום אחד', number: '03' },
   festival: { title: 'סרטי פסטיבלים', subtitle: 'סרטים שנבחרו לבמה הגדולה', category: 'פסטיבל', number: '04' },
   community: { title: 'יצירה מהקהילה', subtitle: 'יוצרים עצמאיים, רעיונות אישיים', category: 'קהילה', number: '05' },
-  official: { title: 'כלים ויצירה', subtitle: 'הדגמות רשמיות ואפשרויות חדשות', category: 'הדגמה רשמית', number: '06' }
+  official: { title: 'כלים ויצירה', subtitle: 'הדגמות רשמיות ואפשרויות חדשות', category: 'הדגמה רשמית', number: '06' },
+  disliked: { title: 'פחות אהבתי', subtitle: 'הסרטים שבחרת להעביר לכאן', category: 'פחות אהבתי', number: '07' }
 };
 const grid = document.querySelector('#grid');
 const search = document.querySelector('#search');
@@ -20,7 +21,9 @@ let selectedFilm = null;
 const dateLabel = iso => iso.split('-').reverse().join('.');
 
 function belongsToPage(film, page) {
-  return page.latest ? film.added === latestAdded : !page.category || film.category === page.category;
+  const override = FilmEditor.get(film.id).category;
+  if (page.latest) return override ? override === 'חדש' : film.added === latestAdded;
+  return !page.category || (override || film.category) === page.category;
 }
 
 function arrowIcon() {
@@ -79,9 +82,6 @@ function card(film) {
     FilmImages.load(image, [poster, preferences.poster && film.poster, film.posterFallback], { onExhausted: () => image.remove() });
     media.append(image);
   }
-  const photoPlay = node('span', '▷', 'photo-play');
-  photoPlay.setAttribute('aria-hidden', 'true');
-  media.append(photoPlay);
   const number = node('span', `NO. ${film.id}`, 'film-number');
   number.dir = 'ltr';
   photo.append(media, number);
@@ -105,11 +105,12 @@ function card(film) {
   details.append(duration, edit);
   const body = node('div', undefined, 'card-body');
   const top = node('div', undefined, 'topline');
-  const categoryClass = film.category === 'קהילה' ? 'community' : film.category === 'הדגמה רשמית' ? 'official' : 'festival';
+  const category = preferences.category || film.category;
+  const categoryClass = { 'קהילה': 'community', 'הדגמה רשמית': 'official', 'פסטיבל': 'festival', 'פחות אהבתי': 'disliked', 'חדש': 'new' }[category];
   const added = node('time', `＋ ${dateLabel(film.added)}`);
   added.dateTime = film.added;
   added.setAttribute('aria-label', `נוסף למחברת ב־${dateLabel(film.added)}`);
-  top.append(node('span', film.category, `badge category-${categoryClass}`), added);
+  top.append(node('span', category, `badge category-${categoryClass}`), added);
   const title = node('h2', film.title);
   title.dir = 'auto';
   const creator = node('p', film.creator, 'creator');
@@ -124,7 +125,34 @@ function card(film) {
   const source = externalLink('מקור ומידע', film.sourceUrl, 'source', film.title);
   source.append(document.createTextNode('מקור ומידע '), arrowIcon());
   actions.append(watch, source);
-  body.append(top, title, creator, node('p', film.description, 'blurb'), tool, actions);
+  const moveField = node('div', undefined, 'move-film');
+  const moveLabel = node('label', 'להעביר לקטגוריה');
+  const moveSelect = node('select');
+  moveSelect.id = `category-${film.id}`;
+  moveLabel.htmlFor = moveSelect.id;
+  moveSelect.setAttribute('aria-label', `להעביר לקטגוריה — ${film.title}`);
+  const placeholder = node('option', 'בחירת קטגוריה…');
+  placeholder.value = ''; placeholder.disabled = true; placeholder.selected = true;
+  moveSelect.append(placeholder);
+  const names = { 'פסטיבל': 'סרטי פסטיבלים', 'קהילה': 'יצירה מהקהילה', 'הדגמה רשמית': 'כלים ויצירה' };
+  for (const value of FilmEditor.categories) {
+    const option = node('option', names[value] || value);
+    option.value = value;
+    moveSelect.append(option);
+  }
+  moveSelect.addEventListener('change', async () => {
+    const destination = moveSelect.value;
+    moveSelect.disabled = true;
+    try {
+      await FilmEditor.move(film.id, destination);
+      document.querySelector('#move-status').textContent = `${film.title} הועבר ל״${names[destination] || destination}״.`;
+    } catch {
+      moveSelect.disabled = false; moveSelect.value = '';
+      document.querySelector('#move-status').textContent = 'ההעברה לא נשמרה. בדקי שאחסון האתר מותר בדפדפן ונסי שוב.';
+    }
+  });
+  moveField.append(moveLabel, moveSelect);
+  body.append(top, title, creator, node('p', film.description, 'blurb'), tool, actions, moveField);
   article.append(photo, details, body);
   return article;
 }
@@ -154,8 +182,8 @@ function render() {
   const page = pages[activePage];
   const query = search.value.trim().toLocaleLowerCase();
   const inPage = films.filter(film => belongsToPage(film, page));
-  document.querySelector('#collection-eyebrow').textContent = page.latest && latestAdded ? `נוספו למחברת ב־${dateLabel(latestAdded)}` : page.subtitle;
-  const visible = inPage.filter(film => [film.title, film.creator, film.tools || '', film.description, film.category].join(' ').toLocaleLowerCase().includes(query));
+  document.querySelector('#collection-eyebrow').textContent = page.latest && latestAdded ? `התוספת האחרונה: ${dateLabel(latestAdded)} · וגם סרטים שהעברת לכאן` : page.subtitle;
+  const visible = inPage.filter(film => [film.title, film.creator, film.tools || '', film.description, FilmEditor.get(film.id).category || film.category].join(' ').toLocaleLowerCase().includes(query));
   visible.sort((a, b) => sort.value === 'title' ? a.title.localeCompare(b.title) : sort.value === 'oldest' ? -newestFirst(a, b) : newestFirst(a, b));
   grid.replaceChildren(...visible.map(card));
   document.querySelector('#count').textContent = loaded ? `${visible.length} מתוך ${inPage.length} סרטים` : 'טוענים את הסרטים…';
@@ -246,9 +274,11 @@ document.querySelector('.skip').addEventListener('click', event => {
 });
 window.addEventListener('hashchange', () => navigate(true));
 window.addEventListener('film-preferences-changed', event => {
+  updateContents();
   render();
   const article = document.getElementById(`film-${event.detail.id}`);
-  article?.querySelector('.edit-film')?.focus({ preventScroll: true });
+  const target = event.detail.moved ? article?.querySelector('.move-film select') || document.querySelector('#collection-title') : article?.querySelector('.edit-film');
+  target?.focus({ preventScroll: true });
 });
 navigate();
 loadFilms();
