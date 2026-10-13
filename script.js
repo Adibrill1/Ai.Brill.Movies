@@ -6,7 +6,7 @@ const pages = {
   all: { title: 'כל הסרטים', subtitle: 'כל הסיפורים, במקום אחד', number: '03' },
   festival: { title: 'סרטי פסטיבלים', subtitle: 'סרטים שנבחרו לבמה הגדולה', category: 'פסטיבל', number: '04' },
   community: { title: 'יצירה מהקהילה', subtitle: 'יוצרים עצמאיים, רעיונות אישיים', category: 'קהילה', number: '05' },
-  official: { title: 'כלים ויצירה', subtitle: 'הדגמות רשמיות ואפשרויות חדשות', category: 'הדגמה רשמית', number: '06' },
+  official: { title: 'אהבתי', subtitle: 'הסרטים שאהבתי ורוצה לחזור אליהם', category: 'הדגמה רשמית', number: '06' },
   disliked: { title: 'פחות אהבתי', subtitle: 'הסרטים שבחרת להעביר לכאן', category: 'פחות אהבתי', number: '07' }
 };
 const grid = document.querySelector('#grid');
@@ -19,6 +19,8 @@ let loading = false;
 let activePage = 'home';
 let selectedFilm = null;
 const dateLabel = iso => iso.split('-').reverse().join('.');
+// Keep stored category values and existing links compatible with older backups.
+const categoryNames = { 'פסטיבל': 'סרטי פסטיבלים', 'קהילה': 'יצירה מהקהילה', 'הדגמה רשמית': 'אהבתי' };
 
 function belongsToPage(film, page) {
   const override = FilmEditor.get(film.id).category;
@@ -47,6 +49,26 @@ function node(tag, text, className) {
 // When dates match, the record appended last is the most recent addition.
 function newestFirst(a, b) {
   return b.added.localeCompare(a.added) || films.indexOf(b) - films.indexOf(a);
+}
+
+function filmDuration(film) {
+  const seconds = FilmEditor.get(film.id).durationSeconds ?? film.durationSeconds;
+  return Number.isInteger(seconds) && seconds > 0 ? seconds : null;
+}
+
+function compareFilms(a, b) {
+  if (sort.value === 'title') return a.title.localeCompare(b.title) || newestFirst(a, b);
+  if (sort.value === 'oldest') return -newestFirst(a, b);
+  if (sort.value === 'shortest' || sort.value === 'longest') {
+    const first = filmDuration(a);
+    const second = filmDuration(b);
+    // Unknown durations stay last in both directions.
+    if (first === null && second === null) return newestFirst(a, b);
+    if (first === null) return 1;
+    if (second === null) return -1;
+    return (sort.value === 'shortest' ? first - second : second - first) || newestFirst(a, b);
+  }
+  return newestFirst(a, b);
 }
 
 function externalLink(label, url, className, filmTitle) {
@@ -86,7 +108,7 @@ function card(film) {
   number.dir = 'ltr';
   photo.append(media, number);
   const details = node('div', undefined, 'film-details');
-  const seconds = preferences.durationSeconds ?? film.durationSeconds;
+  const seconds = filmDuration(film);
   const duration = node('span', undefined, 'film-duration');
   if (Number.isInteger(seconds) && seconds > 0) {
     const time = node('time', FilmEditor.formatTime(seconds));
@@ -110,7 +132,7 @@ function card(film) {
   const added = node('time', `＋ ${dateLabel(film.added)}`);
   added.dateTime = film.added;
   added.setAttribute('aria-label', `נוסף למחברת ב־${dateLabel(film.added)}`);
-  top.append(node('span', category, `badge category-${categoryClass}`), added);
+  top.append(node('span', category === 'הדגמה רשמית' ? categoryNames[category] : category, `badge category-${categoryClass}`), added);
   const title = node('h2', film.title);
   title.dir = 'auto';
   const creator = node('p', film.creator, 'creator');
@@ -134,7 +156,7 @@ function card(film) {
   const placeholder = node('option', 'בחירת קטגוריה…');
   placeholder.value = ''; placeholder.disabled = true; placeholder.selected = true;
   moveSelect.append(placeholder);
-  const names = { 'פסטיבל': 'סרטי פסטיבלים', 'קהילה': 'יצירה מהקהילה', 'הדגמה רשמית': 'כלים ויצירה' };
+  const names = categoryNames;
   for (const value of FilmEditor.categories) {
     const option = node('option', names[value] || value);
     option.value = value;
@@ -183,8 +205,11 @@ function render() {
   const query = search.value.trim().toLocaleLowerCase();
   const inPage = films.filter(film => belongsToPage(film, page));
   document.querySelector('#collection-eyebrow').textContent = page.latest && latestAdded ? `התוספת האחרונה: ${dateLabel(latestAdded)} · וגם סרטים שהעברת לכאן` : page.subtitle;
-  const visible = inPage.filter(film => [film.title, film.creator, film.tools || '', film.description, FilmEditor.get(film.id).category || film.category].join(' ').toLocaleLowerCase().includes(query));
-  visible.sort((a, b) => sort.value === 'title' ? a.title.localeCompare(b.title) : sort.value === 'oldest' ? -newestFirst(a, b) : newestFirst(a, b));
+  const visible = inPage.filter(film => {
+    const category = FilmEditor.get(film.id).category || film.category;
+    return [film.title, film.creator, film.tools || '', film.description, categoryNames[category] || category].join(' ').toLocaleLowerCase().includes(query);
+  });
+  visible.sort(compareFilms);
   grid.replaceChildren(...visible.map(card));
   document.querySelector('#count').textContent = loaded ? `${visible.length} מתוך ${inPage.length} סרטים` : 'טוענים את הסרטים…';
   document.querySelector('#empty').hidden = !loaded || visible.length > 0;
