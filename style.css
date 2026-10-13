@@ -101,3 +101,9 @@
 .move-film select { min-width: 0; max-width: 100%; min-height: 44px; padding: 7px; background: var(--paper); border: 1px solid #b9bdad; border-radius: 3px; color: var(--ink); font: inherit; font-size: 12px; }
 .move-status { font-size: 13px; color: #536548; }
 .move-status:empty { margin: 0; }
+
+.film-date { color: var(--muted); font-size: 12px; margin: 8px 0; }
+.film-date-fields { margin: 20px 0 0; padding: 15px 0 0; border: 0; border-top: 1px dashed var(--line); display: grid; grid-template-columns: 1fr 135px; gap: 10px; }
+.film-date-fields legend, .film-date-fields .field-hint { grid-column: 1 / -1; }
+.film-date-fields label { font-size: 13px; align-self: center; }
+.film-date-fields input { min-width: 0; width: 100%; padding: 9px; border: 1px solid #b9bdad; background: white; border-radius: 3px; }

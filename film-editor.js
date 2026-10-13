@@ -44,6 +44,12 @@ window.FilmEditor = (() => {
       if (!categories.includes(record.category)) throw new Error('Invalid category');
       clean.category = record.category;
     }
+    for (const field of ['createdDate', 'publishedDate']) {
+      if (Object.hasOwn(record, field)) {
+        if (record[field] !== null && !FilmDates.valid(record[field])) throw new Error('Invalid film date');
+        clean[field] = record[field];
+      }
+    }
     return clean;
   }
 
@@ -174,6 +180,7 @@ window.FilmEditor = (() => {
     const seconds = current.durationSeconds ?? film.durationSeconds;
     duration.value = seconds ? formatTime(seconds) : '';
     duration.setCustomValidity('');
+    for (const field of ['createdDate', 'publishedDate']) document.getElementById(field).value = current[field] ?? film[field] ?? '';
     document.querySelector('#selected-frame').hidden = !selectedPoster;
     if (selectedPoster) selectPoster(selectedPoster, 'התמונה הנוכחית');
     const options = document.querySelector('#frame-options');
@@ -200,6 +207,11 @@ window.FilmEditor = (() => {
     catch (error) { showMessage(error.message, true); duration.focus(); return; }
     const id = activeFilm.id;
     const record = { id };
+    for (const field of ['createdDate', 'publishedDate']) {
+      const value = document.getElementById(field).value.trim();
+      if (value && !FilmDates.valid(value)) { showMessage('כתבי תאריך תקין: 2025, 2025-03 או 2025-03-21.', true); document.getElementById(field).focus(); return; }
+      if (value && value !== activeFilm[field]) record[field] = value;
+    }
     const category = choices.get(id)?.category;
     if (category) record.category = category;
     if (selectedPoster && selectedPoster !== activeFilm.poster) record.poster = selectedPoster;
@@ -219,8 +231,10 @@ window.FilmEditor = (() => {
     save.disabled = restore.disabled = true;
     try {
       const id = activeFilm.id;
-      const category = choices.get(id)?.category;
-      if (category) await persist([{ id, category }]);
+      const current = choices.get(id) || {};
+      const retained = { id };
+      for (const field of ['category', 'createdDate', 'publishedDate']) if (Object.hasOwn(current, field)) retained[field] = current[field];
+      if (Object.keys(retained).length > 1) await persist([retained]);
       else await persist([], id);
       announceChange(id);
     }

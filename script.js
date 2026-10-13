@@ -58,7 +58,15 @@ function filmDuration(film) {
 
 function compareFilms(a, b) {
   if (sort.value === 'title') return a.title.localeCompare(b.title) || newestFirst(a, b);
-  if (sort.value === 'oldest') return -newestFirst(a, b);
+  if (sort.value === 'oldest' || sort.value === 'newest') {
+    const first = FilmDates.effective(a, FilmEditor.get(a.id));
+    const second = FilmDates.effective(b, FilmEditor.get(b.id));
+    if (!first && !second) return a.title.localeCompare(b.title);
+    if (!first) return 1;
+    if (!second) return -1;
+    const difference = first.sortKey.localeCompare(second.sortKey);
+    return (sort.value === 'oldest' ? difference : -difference) || a.title.localeCompare(b.title);
+  }
   if (sort.value === 'shortest' || sort.value === 'longest') {
     const first = filmDuration(a);
     const second = filmDuration(b);
@@ -120,9 +128,9 @@ function card(film) {
     duration.textContent = 'אורך הסרט טרם צוין';
     duration.classList.add('duration-unknown');
   }
-  const edit = node('button', 'בחירת פריים ומשך', 'edit-film');
+  const edit = node('button', 'עריכת הכרטיס', 'edit-film');
   edit.type = 'button';
-  edit.setAttribute('aria-label', `בחירת פריים ומשך — ${film.title}`);
+  edit.setAttribute('aria-label', `עריכת הכרטיס — ${film.title}`);
   edit.addEventListener('click', () => FilmEditor.open(film));
   details.append(duration, edit);
   const body = node('div', undefined, 'card-body');
@@ -174,7 +182,14 @@ function card(film) {
     }
   });
   moveField.append(moveLabel, moveSelect);
-  body.append(top, title, creator, node('p', film.description, 'blurb'), tool, actions, moveField);
+  const filmDate = FilmDates.effective(film, preferences);
+  const dateLine = node('p', undefined, 'film-date');
+  if (filmDate) {
+    const time = node('time', FilmDates.label(filmDate.value));
+    time.dateTime = filmDate.value; time.dir = 'ltr';
+    dateLine.append(document.createTextNode(`${filmDate.label}: `), time);
+  } else dateLine.textContent = 'תאריך יצירה או פרסום לא ידוע';
+  body.append(top, title, creator, dateLine, node('p', film.description, 'blurb'), tool, actions, moveField);
   article.append(photo, details, body);
   return article;
 }
@@ -210,6 +225,7 @@ function render() {
     return [film.title, film.creator, film.tools || '', film.description, categoryNames[category] || category].join(' ').toLocaleLowerCase().includes(query);
   });
   visible.sort(compareFilms);
+  document.querySelector('#date-sort-note').hidden = !['newest', 'oldest'].includes(sort.value);
   grid.replaceChildren(...visible.map(card));
   document.querySelector('#count').textContent = loaded ? `${visible.length} מתוך ${inPage.length} סרטים` : 'טוענים את הסרטים…';
   document.querySelector('#empty').hidden = !loaded || visible.length > 0;

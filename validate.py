@@ -1,5 +1,5 @@
 """Validate the library without external dependencies."""
-import json, pathlib, datetime
+import json, pathlib, datetime, re
 from urllib.parse import urlparse
 root = pathlib.Path(__file__).parent
 films = json.loads((root / 'films.json').read_text())
@@ -20,6 +20,14 @@ for film in films:
     assert duration is None or (type(duration) is int and 0 < duration < 86400), (film['id'], 'durationSeconds')
     if film.get('durationSource'):
         parsed = urlparse(film['durationSource']); assert parsed.scheme == 'https' and parsed.netloc
+    for field in ('createdDate', 'publishedDate'):
+        value = film.get(field)
+        if value is not None:
+            assert isinstance(value, str) and re.fullmatch(r'[1-9]\d{3}(?:-\d{2}(?:-\d{2})?)?', value), (film['id'], field)
+            full = value + ('-01-01' if len(value) == 4 else '-01' if len(value) == 7 else '')
+            datetime.date.fromisoformat(full)
+            source = urlparse(film.get(field + 'Source', ''))
+            assert source.scheme == 'https' and source.netloc, (film['id'], field + 'Source')
     if film.get('posterFallback'):
         parsed = urlparse(film['posterFallback']); assert parsed.scheme == 'https' and parsed.netloc
 known_durations = sum(film.get('durationSeconds') is not None for film in films)
