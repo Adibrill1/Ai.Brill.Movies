@@ -103,9 +103,6 @@ window.FilmEditor = (() => {
   const dialog = document.querySelector('#film-editor');
   const form = document.querySelector('#editor-form');
   const message = document.querySelector('#editor-message');
-  const video = document.querySelector('#frame-video');
-  const position = document.querySelector('#frame-position');
-  const capture = document.querySelector('#capture-frame');
   const duration = document.querySelector('#film-duration');
   const save = document.querySelector('#save-film-preferences');
   const restore = document.querySelector('#restore-film-defaults');
@@ -113,7 +110,6 @@ window.FilmEditor = (() => {
   const backupStatus = document.querySelector('#preferences-status');
   let activeFilm;
   let selectedPoster;
-  let videoObjectUrl;
   let session = 0;
 
   function showMessage(text, error = false) {
@@ -157,21 +153,9 @@ window.FilmEditor = (() => {
     return button;
   }
 
-  function cleanupVideo() {
-    video.pause();
-    video.removeAttribute('src');
-    video.load();
-    if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl);
-    videoObjectUrl = null;
-    capture.disabled = true;
-    position.disabled = true;
-    document.querySelector('#video-controls').hidden = true;
-  }
-
   async function open(film) {
     await ready;
     session++;
-    cleanupVideo();
     activeFilm = film;
     const current = choices.get(film.id) || {};
     selectedPoster = current.poster || film.poster || null;
@@ -185,10 +169,27 @@ window.FilmEditor = (() => {
     if (selectedPoster) selectPoster(selectedPoster, 'התמונה הנוכחית');
     const options = document.querySelector('#frame-options');
     options.replaceChildren();
-    if (film.poster) options.append(makeChoice(film.poster, 'התמונה המקורית'));
+    const candidates = [];
+    if (film.poster) candidates.push({ src: film.poster, label: 'התמונה המקורית' });
+    candidates.push(...(film.posterOptions || []));
     const id = youtubeId(film);
-    if (id) for (let index = 1; index <= 3; index++) options.append(makeChoice(`https://img.youtube.com/vi/${id}/maxres${index}.jpg`, `פריים ${index}`));
-    document.querySelector('#frame-presets').hidden = !id;
+    if (id) {
+      for (let index = 1; index <= 3; index++) candidates.push({ src: `https://img.youtube.com/vi/${id}/maxres${index}.jpg`, label: `פריים ${index}` });
+    } else if (film.posterFallback) {
+      candidates.push({ src: film.posterFallback, label: 'תמונה ממקור הצפייה' });
+    }
+    const seen = new Set();
+    for (const { src, label } of candidates) {
+      const key = FilmImages.key(src);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      options.append(makeChoice(src, label));
+    }
+    document.querySelector('#frame-options-hint').textContent = seen.size > 1
+      ? 'בחרי תמונה ולחצי על ״שמירה בכרטיס״. התמונות נאספו ממקורות הסרט; חלקן עשויות להציג את אותו רגע.'
+      : seen.size === 1
+        ? 'כרגע מוכרת לסרט הזה רק תמונה אחת. אפשר גם לבחור תמונה ששמרת במכשיר.'
+        : 'עדיין אין תמונות לבחירה לסרט הזה. אפשר לבחור תמונה ששמרת במכשיר.';
     showMessage(storageAvailable ? '' : 'הדפדפן אינו מאפשר שמירה כרגע. אפשר לאפשר אחסון לאתר ולרענן, או להשתמש בדפדפן אחר.', !storageAvailable);
     save.disabled = !storageAvailable;
     restore.disabled = !storageAvailable;
@@ -242,36 +243,7 @@ window.FilmEditor = (() => {
     finally { save.disabled = restore.disabled = !storageAvailable; }
   });
   document.querySelector('#close-editor').addEventListener('click', () => dialog.close());
-  dialog.addEventListener('close', () => { session++; cleanupVideo(); });
-
-  document.querySelector('#frame-video-file').addEventListener('change', event => {
-    const file = event.target.files[0];
-    if (!file) return;
-    cleanupVideo();
-    videoObjectUrl = URL.createObjectURL(file);
-    video.src = videoObjectUrl;
-    document.querySelector('#video-controls').hidden = false;
-    showMessage('הווידאו נטען במכשיר שלך…');
-  });
-  video.addEventListener('loadedmetadata', () => {
-    if (!Number.isFinite(video.duration) || video.duration <= 0) return;
-    position.max = video.duration;
-    position.value = 0;
-    position.disabled = false;
-    if (!duration.value && video.duration < 86400) duration.value = formatTime(Math.max(1, Math.round(video.duration)));
-    showMessage('עצרי ברגע הרצוי ובחרי את הפריים.');
-  });
-  video.addEventListener('loadeddata', () => { capture.disabled = false; });
-  video.addEventListener('seeking', () => { capture.disabled = true; });
-  video.addEventListener('seeked', () => { capture.disabled = video.readyState < 2; });
-  video.addEventListener('timeupdate', () => {
-    position.value = video.currentTime;
-    document.querySelector('#frame-time').textContent = formatTime(video.currentTime);
-  });
-  video.addEventListener('error', () => {
-    if (videoObjectUrl) showMessage('הדפדפן לא הצליח לפתוח את הקובץ. נסי סרט בפורמט MP4 נתמך, או שמרי פריים כתמונה ובחרי אותה.', true);
-  });
-  position.addEventListener('input', () => { video.pause(); video.currentTime = Number(position.value); });
+  dialog.addEventListener('close', () => { session++; });
 
   function snapshot(source, width, height) {
     const scale = Math.min(1, 1920 / Math.max(width, height));
@@ -281,15 +253,6 @@ window.FilmEditor = (() => {
     canvas.getContext('2d').drawImage(source, 0, 0, canvas.width, canvas.height);
     return canvas.toDataURL('image/jpeg', 0.95);
   }
-  capture.addEventListener('click', () => {
-    if (video.readyState < 2 || !video.videoWidth || video.seeking) return;
-    video.pause();
-    try {
-      selectPoster(snapshot(video, video.videoWidth, video.videoHeight), `פריים מתוך הסרט · ${formatTime(video.currentTime)}`);
-      showMessage('הפריים מוכן. לחצי על ״שמירה בכרטיס״ כדי לשמור.');
-    } catch { showMessage('לא הצלחנו ללכוד את הפריים. נסי רגע אחר בסרט.', true); }
-  });
-
   document.querySelector('#frame-image-file').addEventListener('change', async event => {
     const file = event.target.files[0];
     const currentSession = session;

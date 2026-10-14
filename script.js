@@ -148,13 +148,9 @@ function card(film) {
   const tool = node('p', undefined, 'tool');
   tool.append(node('strong', 'כלי יצירה:'), node('bdi', film.tools || 'לא אומת'));
   const actions = node('div', undefined, 'actions');
-  const watch = externalLink('לצפייה בסרט', film.watchUrl, 'watch', film.title);
-  const play = node('span', '▷');
-  play.setAttribute('aria-hidden', 'true');
-  watch.append(play, document.createTextNode('לצפייה בסרט'));
   const source = externalLink('מקור ומידע', film.sourceUrl, 'source', film.title);
   source.append(document.createTextNode('מקור ומידע '), arrowIcon());
-  actions.append(watch, source);
+  actions.append(source);
   const moveField = node('div', undefined, 'move-film');
   const moveLabel = node('label', 'להעביר לקטגוריה');
   const moveSelect = node('select');

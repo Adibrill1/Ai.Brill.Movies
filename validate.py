@@ -30,5 +30,15 @@ for film in films:
             assert source.scheme == 'https' and source.netloc, (film['id'], field + 'Source')
     if film.get('posterFallback'):
         parsed = urlparse(film['posterFallback']); assert parsed.scheme == 'https' and parsed.netloc
+    if 'posterOptions' in film:
+        assert isinstance(film['posterOptions'], list), (film['id'], 'posterOptions')
+        image_urls = set()
+        for option in film['posterOptions']:
+            assert isinstance(option['label'], str) and option['label'].strip(), (film['id'], 'image label')
+            for field in ('src', 'sourceUrl'):
+                parsed = urlparse(option[field])
+                assert parsed.scheme == 'https' and parsed.netloc and not parsed.username and not parsed.password, (film['id'], field)
+            assert option['src'] not in image_urls, (film['id'], 'Duplicate image option')
+            image_urls.add(option['src'])
 known_durations = sum(film.get('durationSeconds') is not None for film in films)
 print(f'OK: {len(films)} films, unique IDs and watch links, valid dates, URLs and images; {known_durations} film durations supplied.')
