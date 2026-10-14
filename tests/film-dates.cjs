@@ -17,7 +17,7 @@ const films = JSON.parse(fs.readFileSync(path.join(__dirname, '../films.json')))
     });
     const page = await context.newPage(); const errors = [];
     page.on('pageerror', error => errors.push(error.message));
-    await page.goto('http://127.0.0.1:8013/#all');
+    await page.goto((process.env.TEST_SITE || 'http://127.0.0.1:8013/') + '#all');
     await page.waitForFunction(n => document.querySelectorAll('.card').length === n, films.length);
     assert.equal(await page.locator('#cloud-login').count(), 0);
     await page.locator('#sort').selectOption('oldest');
@@ -57,8 +57,8 @@ const films = JSON.parse(fs.readFileSync(path.join(__dirname, '../films.json')))
     assert.equal(await page.locator('#film-004 .film-date time').textContent(), '2019');
     console.log('PASS date backup export/import, removing creation override falls back to publication, invalid backup leaves choices unchanged');
     await page.locator('[data-page="new"]').click();
-    await page.waitForFunction(() => document.querySelectorAll('.card').length === 10);
     const latest = films.reduce((date, f) => f.added > date ? f.added : date, '');
+    await page.waitForFunction(count => document.querySelectorAll('.card').length === count, films.filter(f => f.added === latest).length);
     assert.deepEqual((await page.locator('.card').evaluateAll(es => es.map(e => e.id))).sort(), films.filter(f => f.added === latest).map(f => 'film-' + f.id).sort());
     for (const mode of ['shortest', 'longest']) {
       await page.locator('#sort').selectOption(mode); assert(await page.locator('#date-sort-note').isHidden());
