@@ -137,20 +137,15 @@ function card(film) {
   const top = node('div', undefined, 'topline');
   const category = preferences.category || film.category;
   const categoryClass = { 'קהילה': 'community', 'הדגמה רשמית': 'official', 'פסטיבל': 'festival', 'פחות אהבתי': 'disliked', 'חדש': 'new' }[category];
-  const added = node('time', `＋ ${dateLabel(film.added)}`);
-  added.dateTime = film.added;
-  added.setAttribute('aria-label', `נוסף למחברת ב־${dateLabel(film.added)}`);
-  top.append(node('span', category === 'הדגמה רשמית' ? categoryNames[category] : category, `badge category-${categoryClass}`), added);
+  const source = externalLink('מקור ומידע', film.sourceUrl, 'source', film.title);
+  source.append(document.createTextNode('מקור ומידע '), arrowIcon());
+  top.append(node('span', category === 'הדגמה רשמית' ? categoryNames[category] : category, `badge category-${categoryClass}`), source);
   const title = node('h2', film.title);
   title.dir = 'auto';
   const creator = node('p', film.creator, 'creator');
   creator.dir = 'auto';
   const tool = node('p', undefined, 'tool');
   tool.append(node('strong', 'כלי יצירה:'), node('bdi', film.tools || 'לא אומת'));
-  const actions = node('div', undefined, 'actions');
-  const source = externalLink('מקור ומידע', film.sourceUrl, 'source', film.title);
-  source.append(document.createTextNode('מקור ומידע '), arrowIcon());
-  actions.append(source);
   const moveField = node('div', undefined, 'move-film');
   const moveLabel = node('label', 'להעביר לקטגוריה');
   const moveSelect = node('select');
@@ -185,7 +180,7 @@ function card(film) {
     time.dateTime = filmDate.value; time.dir = 'ltr';
     dateLine.append(document.createTextNode(`${filmDate.label}: `), time);
   } else dateLine.textContent = 'תאריך יצירה או פרסום לא ידוע';
-  body.append(top, title, creator, dateLine, node('p', film.description, 'blurb'), tool, actions, moveField);
+  body.append(top, title, creator, dateLine, node('p', film.description, 'blurb'), tool, moveField);
   article.append(photo, details, body);
   return article;
 }
