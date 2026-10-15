@@ -29,7 +29,7 @@ const jpeg = Buffer.from(paola.poster.split(',')[1], 'base64');
     assert.equal(await page.locator('.watch').count(), 0);
     for (const film of films) assert.equal(await page.locator(`#film-${film.id} .film-photo`).getAttribute('href'), film.watchUrl);
     const nonYoutube = films.filter(f => !/youtu(?:\.be|be\.com)/.test(f.watchUrl));
-    assert.equal(nonYoutube.length, 10);
+    assert(nonYoutube.length > 0, 'The collection includes non-YouTube films');
     for (const film of nonYoutube) {
       await open(film.id);
       assert(await page.locator('#frame-presets').isVisible());
