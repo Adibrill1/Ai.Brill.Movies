@@ -1,0 +1,35 @@
+name: עדכון הסרטים החדשים
+
+on:
+  workflow_dispatch:
+    inputs:
+      preview_only:
+        description: בדיקה בלבד — ללא מיזוג או פרסום
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  pages: write
+
+concurrency:
+  group: manual-film-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: טעינת קוד הבדיקה מהאתר
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: main
+          persist-credentials: false
+      - name: בדיקה ועדכון האוסף
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PREVIEW_ONLY: ${{ inputs.preview_only }}
+        run: python3 scripts/update_films.py

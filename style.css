@@ -103,3 +103,7 @@
 .film-date-fields input { min-width: 0; width: 100%; padding: 9px; border: 1px solid #b9bdad; background: white; border-radius: 3px; }
 
 .source:hover { text-decoration: underline; text-underline-offset: 5px; }
+
+.library-update { max-width: 1120px; margin: 0 auto 18px; padding: 0 24px; font-size: 12px; color: var(--muted); }
+.library-update summary { cursor: pointer; width: fit-content; min-height: 44px; display: list-item; align-content: center; color: var(--rust); }
+.library-update p { max-width: 650px; line-height: 1.8; margin: 8px 0 12px; }
