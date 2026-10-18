@@ -12,6 +12,7 @@ const pages = {
 const grid = document.querySelector('#grid');
 const search = document.querySelector('#search');
 const sort = document.querySelector('#sort');
+const heartsOnly = document.querySelector('#hearts-only');
 let films = [];
 let latestAdded = '';
 let loaded = false;
@@ -22,10 +23,28 @@ const dateLabel = iso => iso.split('-').reverse().join('.');
 // Keep stored category values and existing links compatible with older backups.
 const categoryNames = { 'פסטיבל': 'סרטי פסטיבלים', 'קהילה': 'יצירה מהקהילה', 'הדגמה רשמית': 'אהבתי' };
 
+function isLoved(film) {
+  const preferences = FilmEditor.get(film.id);
+  return Boolean(preferences.liked) || (preferences.category || film.category) === 'הדגמה רשמית';
+}
+
+function heartIcon() {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('class', 'heart-icon');
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', 'M12 21C7 16.5 3 13.3 3 9.3 3 6.4 5.2 4.5 7.7 4.5c1.7 0 3.3.9 4.3 2.4 1-1.5 2.6-2.4 4.3-2.4 2.5 0 4.7 1.9 4.7 4.8 0 4-4 7.2-9 11.7z');
+  svg.append(path);
+  return svg;
+}
+
 function belongsToPage(film, page) {
   const override = FilmEditor.get(film.id).category;
   if (page.latest) return override ? override === 'חדש' : film.added === latestAdded;
-  return !page.category || (override || film.category) === page.category;
+  if (!page.category) return true;
+  if (page.category === 'הדגמה רשמית') return (override || film.category) === 'הדגמה רשמית' || Boolean(FilmEditor.get(film.id).liked);
+  return (override || film.category) === page.category;
 }
 
 function arrowIcon() {
@@ -181,7 +200,20 @@ function card(film) {
     dateLine.append(document.createTextNode(`${filmDate.label}: `), time);
   } else dateLine.textContent = 'תאריך יצירה או פרסום לא ידוע';
   body.append(top, title, creator, dateLine, node('p', film.description, 'blurb'), tool, moveField);
-  article.append(photo, details, body);
+  const loved = isLoved(film);
+  const heart = node('button', undefined, 'heart-toggle');
+  heart.type = 'button';
+  heart.setAttribute('aria-pressed', String(loved));
+  heart.setAttribute('aria-label', loved ? `להסיר את ${film.title} מאהבתי` : `לסמן את ${film.title} בלב`);
+  heart.title = loved ? 'מסומן בלב - לחיצה מסירה' : 'לסמן בלב';
+  heart.append(heartIcon());
+  heart.addEventListener('click', async () => {
+    heart.disabled = true;
+    try { await FilmEditor.like(film.id, !isLoved(film)); }
+    catch { heart.setAttribute('aria-label', 'הסימון לא נשמר. בדקי שאחסון האתר מותר בדפדפן.'); }
+    finally { heart.disabled = false; }
+  });
+  article.append(photo, details, body, heart);
   return article;
 }
 
@@ -212,6 +244,7 @@ function render() {
   const inPage = films.filter(film => belongsToPage(film, page));
   document.querySelector('#collection-eyebrow').textContent = page.latest && latestAdded ? `התוספת האחרונה: ${dateLabel(latestAdded)} · וגם סרטים שהעברת לכאן` : page.subtitle;
   const visible = inPage.filter(film => {
+    if (heartsOnly.checked && !isLoved(film)) return false;
     const category = FilmEditor.get(film.id).category || film.category;
     return [film.title, film.creator, film.tools || '', film.description, categoryNames[category] || category].join(' ').toLocaleLowerCase().includes(query);
   });
@@ -294,6 +327,7 @@ async function loadFilms() {
 
 search.addEventListener('input', render);
 sort.addEventListener('change', render);
+heartsOnly.addEventListener('change', render);
 document.querySelector('#reset').addEventListener('click', () => {
   search.value = '';
   render();
