@@ -2,9 +2,9 @@
 
 // Personal choices stay in this browser. Only an explicit export creates a file.
 window.FilmEditor = (() => {
-  const categories = ['חדש', 'פסטיבל', 'קהילה', 'הדגמה רשמית', 'פחות אהבתי'];
+  const categories = ['חדש', 'סרטים', 'איך', 'פסטיבל', 'קהילה', 'הדגמה רשמית', 'פחות אהבתי'];
   // Destinations offered in the move menu; removed categories stay valid for stored choices.
-  const moveCategories = ['חדש', 'פסטיבל', 'קהילה'];
+  const moveCategories = ['חדש', 'סרטים', 'איך'];
   const choices = new Map();
   let database;
   let storageAvailable = true;
