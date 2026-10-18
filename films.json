@@ -1499,5 +1499,61 @@
     "posterFallback": "https://pbs.twimg.com/amplify_video_thumb/2111393587887849472/img/GY4IDTKY1PHvoNH9.jpg",
     "durationSeconds": 24,
     "durationSource": "https://x.com/francescoinweb3/status/2111393917899808880"
+  },
+  {
+    "id": "099",
+    "title": "Build Your Own AI Production Studio With Claude",
+    "creator": "Francesco (@francescoinweb3)",
+    "added": "2026-10-18",
+    "tools": "Claude · Remotion",
+    "category": "איך",
+    "description": "אולפן הפקה שלם בתוך Claude, בלי מודל וידאו בכלל: שלושה חדרים - נתונים (Dashboards, עם השאילתה מאחורי כל מספר), מושן (האנימציה נכתבת כקוד ב-Remotion) ועריכה (Docs/Slides). המאמר מפרט 10 ריפוז של סקילז בקוד פתוח, וורקפלואו של 6 צעדים מרפרנס לקליפ מוגמר ותכנית לשבוע ראשון. הבימוי נעשה במילים: כל הערה היא שינוי של שורה אחת בקוד, לא רינדור מחדש.",
+    "watchUrl": "https://x.com/francescoinweb3/status/2108882188624121896",
+    "sourceUrl": "https://x.com/francescoinweb3/status/2108882188624121896",
+    "poster": "https://pbs.twimg.com/media/HURAFrSXYAADpqe.jpg",
+    "posterFallback": "https://pbs.twimg.com/media/HURAFrSXYAADpqe.jpg",
+    "durationSeconds": null
+  },
+  {
+    "id": "100",
+    "title": "How I Built a Claude Content Farm for Shorts, TikTok and Reels",
+    "creator": "Francesco (@francescoinweb3)",
+    "added": "2026-10-18",
+    "tools": "Claude · Picsart",
+    "category": "איך",
+    "description": "חוות תוכן לשורטס שמייצרת בקנה מידה רק דבר אחד: את שתי השניות הראשונות. גוף אחד מוכח עם 10 הוקים שונים, גרסה מותאמת לכל פלטפורמה, ודירוג לפי אחוז ההחזקה אחרי 48 שעות - ההוק המנצח הופך לבסיס למחזור הבא. כולל שני סקריפטים של Python. הערה: המאמר בנוי סביב קישור שותפים ל-Picsart, והמספרים בו דיווח עצמי של הכותב.",
+    "watchUrl": "https://x.com/francescoinweb3/status/2107875790406713598",
+    "sourceUrl": "https://x.com/francescoinweb3/status/2107875790406713598",
+    "poster": "https://pbs.twimg.com/media/HUCsx7gXMAA2HuM.jpg",
+    "posterFallback": "https://pbs.twimg.com/media/HUCsx7gXMAA2HuM.jpg",
+    "durationSeconds": null
+  },
+  {
+    "id": "101",
+    "title": "Claude Code as a Production Studio - The Paste-Ready Prompt",
+    "creator": "Francesco (@francescoinweb3)",
+    "added": "2026-10-18",
+    "tools": "Claude Code · Remotion",
+    "category": "איך",
+    "description": "פרומפט אחד מלא להדבקה ב-Claude Code שהופך אותו לאולפן וידאו: שבעה שלבים בסדר קבוע - setup שטוען את סקילז ה-Remotion והמושן-דיזיין, ניתוח רפרנס ל-spec עם קצב ו-BPM, נתונים עם שאילתא מאחורי כל מספר, סיפור עם מספר גיבור אחד, מושן שכל הערכים בו בקובץ timing אחד, בימוי במילים שמוחזר כ-diff של שורה אחת, ורינדור עם בדיקת המספרים שעל המסך. הפרומפט המלא בתמונת הפוסט.",
+    "watchUrl": "https://x.com/francescoinweb3/status/2109248400294117608",
+    "sourceUrl": "https://x.com/francescoinweb3/status/2109248400294117608",
+    "poster": "https://pbs.twimg.com/media/HUWOAxaWAAEIiRX.jpg",
+    "posterFallback": "https://pbs.twimg.com/media/HUWOAxaWAAEIiRX.jpg",
+    "durationSeconds": null
+  },
+  {
+    "id": "102",
+    "title": "Boris Cherny's Claude Code Tips, Applied to Video Production",
+    "creator": "Francesco (@francescoinweb3)",
+    "added": "2026-10-18",
+    "tools": "Claude Code · Remotion",
+    "category": "איך",
+    "description": "הטיפים הפומביים של Boris Cherny, יוצר Claude Code, מיושמים להפקת וידאו: plan mode לפני הכל, CLAUDE.md עם כללי האולפן שנקרא בכל תור, subagents שכל אחד עם תפקיד צר אחד, בדיקה עצמית שמרנדרת פריים ומשווה אותו ל-spec, ו-hooks שחוסמים פרסום בלי אישור. כל עריכה נשארת שורה אחת בקוד. הפרומפט המלא בתמונת הפוסט.",
+    "watchUrl": "https://x.com/francescoinweb3/status/2110028513596064075",
+    "sourceUrl": "https://x.com/francescoinweb3/status/2110028513596064075",
+    "poster": "https://pbs.twimg.com/media/HUhTjHzXYAAcE1m.jpg",
+    "posterFallback": "https://pbs.twimg.com/media/HUhTjHzXYAAcE1m.jpg",
+    "durationSeconds": null
   }
 ]
