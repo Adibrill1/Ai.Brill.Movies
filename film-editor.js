@@ -44,6 +44,10 @@ window.FilmEditor = (() => {
       if (!categories.includes(record.category)) throw new Error('Invalid category');
       clean.category = record.category;
     }
+    if (Object.hasOwn(record, 'liked')) {
+      if (record.liked !== true) throw new Error('Invalid like');
+      clean.liked = true;
+    }
     for (const field of ['createdDate', 'publishedDate']) {
       if (Object.hasOwn(record, field)) {
         if (record[field] !== null && !FilmDates.valid(record[field])) throw new Error('Invalid film date');
@@ -299,11 +303,21 @@ window.FilmEditor = (() => {
     input.value = '';
   });
 
+  async function like(id, on) {
+    await ready;
+    const current = { ...choices.get(id), id };
+    if (on) current.liked = true;
+    else delete current.liked;
+    if (Object.keys(current).length === 1) await persist([], id);
+    else await persist([validateRecord(current)]);
+    window.dispatchEvent(new CustomEvent('film-preferences-changed', { detail: { id } }));
+  }
+
   async function move(id, category) {
     await ready;
     await persist([validateRecord({ ...choices.get(id), id, category })]);
     window.dispatchEvent(new CustomEvent('film-preferences-changed', { detail: { id, moved: true } }));
   }
 
-  return { ready, open, formatTime, move, categories, get: id => choices.get(id) || {} };
+  return { ready, open, formatTime, move, like, categories, get: id => choices.get(id) || {} };
 })();
