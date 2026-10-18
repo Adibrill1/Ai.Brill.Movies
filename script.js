@@ -282,7 +282,7 @@ function navigate(moveFocus = false) {
     else tab.removeAttribute('aria-current');
   });
   const page = pages[activePage];
-  document.title = `${page.title} | מחברת הסרטים שלי`;
+  document.title = `${page.title} | המחברת שלי`;
   if (!isHome) {
     document.querySelector('#collection-title').textContent = page.title;
     document.querySelector('#collection-eyebrow').textContent = page.subtitle;
