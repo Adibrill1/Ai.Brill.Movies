@@ -3,6 +3,8 @@
 // Personal choices stay in this browser. Only an explicit export creates a file.
 window.FilmEditor = (() => {
   const categories = ['חדש', 'פסטיבל', 'קהילה', 'הדגמה רשמית', 'פחות אהבתי'];
+  // Destinations offered in the move menu; removed categories stay valid for stored choices.
+  const moveCategories = ['חדש', 'פסטיבל', 'קהילה'];
   const choices = new Map();
   let database;
   let storageAvailable = true;
@@ -319,5 +321,5 @@ window.FilmEditor = (() => {
     window.dispatchEvent(new CustomEvent('film-preferences-changed', { detail: { id, moved: true } }));
   }
 
-  return { ready, open, formatTime, move, like, categories, get: id => choices.get(id) || {} };
+  return { ready, open, formatTime, move, like, categories, moveCategories, get: id => choices.get(id) || {} };
 })();
