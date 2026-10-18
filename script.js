@@ -40,7 +40,7 @@ function belongsToPage(film, page) {
   const override = FilmEditor.get(film.id).category;
   const effective = override || film.category;
   if (page.latest) return override ? override === 'חדש' : film.added === latestAdded && film.category !== 'איך';
-  if (!page.category) return effective !== 'איך';
+  if (!page.category) return effective !== 'איך' && effective !== 'חדש';
   return effective === page.category;
 }
 
@@ -215,7 +215,7 @@ function card(film) {
 }
 
 function updateContents() {
-  document.querySelector('#total-films').textContent = films.filter(film => film.category !== 'איך').length;
+  document.querySelector('#total-films').textContent = films.filter(film => film.category !== 'איך' && film.category !== 'חדש').length;
   const latest = [...films].filter(film => film.category !== 'איך').sort(newestFirst);
   document.querySelector('#last-updated').textContent = latest.length ? `תוספת אחרונה · ${dateLabel(latest[0].added)}` : 'הסיפור הראשון עוד לפנינו';
   document.querySelectorAll('[data-count]').forEach(element => {
