@@ -33,10 +33,7 @@
     <nav class="page-tabs" aria-label="דפי המחברת">
       <a href="#home" data-page="home" class="tab tab-home" aria-current="page">תוכן עניינים</a>
       <a href="#new" data-page="new" class="tab tab-new">חדש</a>
-      <a href="#all" data-page="all" class="tab tab-all">כל הסרטים</a>
-      <a href="#how" data-page="how" class="tab tab-how">איך</a>
-      <a href="#official" data-page="official" class="tab tab-official">אהבתי</a>
-      <a href="#disliked" data-page="disliked" class="tab tab-disliked">פחות אהבתי</a>
+      <a href="#all" data-page="all" class="tab tab-all">סרטים</a>
     </nav>
     <main id="main" class="notebook" tabindex="-1">
       <div class="binding" aria-hidden="true"></div>
@@ -53,10 +50,8 @@
             <div class="contents-heading"><span class="eyebrow">מאיפה מתחילים?</span><h2>תוכן העניינים</h2><svg class="hand-arrow" aria-hidden="true" viewBox="0 0 42 42"><path d="M9 4c27 0 26 24 1 30m0 0 3-12m-3 12 13 1"/></svg></div>
             <nav class="contents" aria-label="תוכן העניינים">
               <a class="contents-row" href="#new"><span class="contents-swatch swatch-new" aria-hidden="true"></span><span class="contents-label">חדש<small>הסרטים מהתוספת האחרונה למחברת</small></span><span class="contents-count" data-count="new">—</span><span class="contents-number">02</span></a>
-              <a class="contents-row" href="#all"><span class="contents-swatch swatch-all" aria-hidden="true"></span><span class="contents-label">כל הסרטים<small>כל הסיפורים, במקום אחד</small></span><span class="contents-count" data-count="all">—</span><span class="contents-number">03</span></a>
+              <a class="contents-row" href="#all"><span class="contents-swatch swatch-all" aria-hidden="true"></span><span class="contents-label">סרטים<small>כל הסיפורים, במקום אחד</small></span><span class="contents-count" data-count="all">—</span><span class="contents-number">03</span></a>
               <a class="contents-row" href="#how"><span class="contents-swatch swatch-how" aria-hidden="true"></span><span class="contents-label">איך<small>טכניקות, ספריות וכלים ליצירת סרטים</small></span><span class="contents-count" data-count="how">—</span><span class="contents-number">04</span></a>
-              <a class="contents-row" href="#official"><span class="contents-swatch swatch-official" aria-hidden="true"></span><span class="contents-label">אהבתי<small>הסרטים שאהבתי ורוצה לחזור אליהם</small></span><span class="contents-count" data-count="official">—</span><span class="contents-number">05</span></a>
-              <a class="contents-row" href="#disliked"><span class="contents-swatch swatch-disliked" aria-hidden="true"></span><span class="contents-label">פחות אהבתי<small>סרטים שהעברתי לכאן</small></span><span class="contents-count" data-count="disliked">—</span><span class="contents-number">06</span></a>
             </nav>
             <div class="legend"><h3>מקרא קטן</h3><div class="legend-items"><span>לחיצה על תמונה פותחת את הסרט</span><span><svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></svg> למקור ולפרטים</span></div></div>
             <section class="recent" aria-labelledby="recent-title"><div class="recent-heading"><h3 id="recent-title">בעמודים האחרונים</h3><span>נוספו לאחרונה</span></div><div id="recent-films"><p class="loading-copy" role="status">פותחים את המחברת…</p></div></section>
@@ -66,7 +61,7 @@
       </section>
       <section id="collection-page" aria-labelledby="collection-title" hidden>
         <div class="collection-topline"><a class="back-link" href="#home"><span aria-hidden="true">→</span> לתוכן העניינים</a><span class="chapter-label" id="chapter-label">פרק 03</span></div>
-        <header class="collection-heading"><div><span class="eyebrow" id="collection-eyebrow">כל הסיפורים, במקום אחד</span><h1 id="collection-title" tabindex="-1">כל הסרטים</h1></div><p id="count" role="status" aria-live="polite"></p></header>
+        <header class="collection-heading"><div><span class="eyebrow" id="collection-eyebrow">כל הסיפורים, במקום אחד</span><h1 id="collection-title" tabindex="-1">סרטים</h1></div><p id="count" role="status" aria-live="polite"></p></header>
         <section class="controls" aria-label="חיפוש ומיון סרטים">
           <div class="search-field"><label for="search" class="visually-hidden">חיפוש לפי שם סרט, יוצר או כלי</label><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5"></path></svg><input type="search" id="search" placeholder="לחפש בין הדפים… שם סרט, יוצר או כלי"></div>
           <div class="sort-field"><label for="sort">לסדר לפי</label><select id="sort"><option value="newest">תאריך הסרט — החדש קודם</option><option value="oldest">תאריך הסרט — הישן קודם</option><option value="shortest">אורך הסרט — הקצר קודם</option><option value="longest">אורך הסרט — הארוך קודם</option><option value="title">שם הסרט</option></select></div><div class="hearts-field"><input type="checkbox" id="hearts-only"><label for="hearts-only">רק מסומנים בלב</label></div>
