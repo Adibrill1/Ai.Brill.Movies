@@ -1,4 +1,4 @@
-# Ai.Brill.Movies
+# brill.ai — המחברת שלי
 
 ספריית סרטי AI בעברית, מותאמת לנייד. HTML, CSS ו-JavaScript בלבד. אין build, שרת, הרשמה, מפתח API או תלות חיצונית.
 

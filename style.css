@@ -76,7 +76,7 @@
 #restore-film-defaults { background: transparent; font-size: 11px; }
 .editor-actions button:disabled { opacity: .6; cursor: wait; }
 @media(max-width:650px) {
-  .tab { flex: 0 0 auto; min-width: 49px; }
+  .tab { flex: 1 1 auto; min-width: 49px; }
   .page-tabs { padding-bottom: 0; scrollbar-width: thin; }
   .film-duration { font-size: 12px; }
   .duration-unknown, .edit-film { font-size: 11px; }
