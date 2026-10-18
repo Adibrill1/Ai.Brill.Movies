@@ -3,10 +3,8 @@
 const pages = {
   home: { title: 'תוכן העניינים', number: '01' },
   new: { title: 'חדש', subtitle: 'הסרטים מהתוספת האחרונה למחברת', latest: true, number: '02' },
-  all: { title: 'כל הסרטים', subtitle: 'כל הסיפורים, במקום אחד', number: '03' },
-  how: { title: 'איך', subtitle: 'טכניקות, ספריות וכלים ליצירת סרטים', category: 'איך', number: '04' },
-  official: { title: 'אהבתי', subtitle: 'הסרטים שאהבתי ורוצה לחזור אליהם', category: 'הדגמה רשמית', number: '05' },
-  disliked: { title: 'פחות אהבתי', subtitle: 'הסרטים שבחרת להעביר לכאן', category: 'פחות אהבתי', number: '06' }
+  all: { title: 'סרטים', subtitle: 'כל הסיפורים, במקום אחד', number: '03' },
+  how: { title: 'איך', subtitle: 'טכניקות, ספריות וכלים ליצירת סרטים', category: 'איך', number: '04' }
 };
 const grid = document.querySelector('#grid');
 const search = document.querySelector('#search');
@@ -43,7 +41,6 @@ function belongsToPage(film, page) {
   const effective = override || film.category;
   if (page.latest) return override ? override === 'חדש' : film.added === latestAdded && film.category !== 'איך';
   if (!page.category) return effective !== 'איך';
-  if (page.category === 'הדגמה רשמית') return effective === 'הדגמה רשמית' || Boolean(FilmEditor.get(film.id).liked);
   return effective === page.category;
 }
 
@@ -175,7 +172,7 @@ function card(film) {
   placeholder.value = ''; placeholder.disabled = true; placeholder.selected = true;
   moveSelect.append(placeholder);
   const names = categoryNames;
-  for (const value of FilmEditor.categories) {
+  for (const value of FilmEditor.moveCategories) {
     const option = node('option', names[value] || value);
     option.value = value;
     moveSelect.append(option);
@@ -204,7 +201,7 @@ function card(film) {
   const heart = node('button', undefined, 'heart-toggle');
   heart.type = 'button';
   heart.setAttribute('aria-pressed', String(loved));
-  heart.setAttribute('aria-label', loved ? `להסיר את ${film.title} מאהבתי` : `לסמן את ${film.title} בלב`);
+  heart.setAttribute('aria-label', loved ? `להסיר את ${film.title} מהמסומנים בלב` : `לסמן את ${film.title} בלב`);
   heart.title = loved ? 'מסומן בלב - לחיצה מסירה' : 'לסמן בלב';
   heart.append(heartIcon());
   heart.addEventListener('click', async () => {
