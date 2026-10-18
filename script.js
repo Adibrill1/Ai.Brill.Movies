@@ -37,7 +37,9 @@ function heartIcon() {
 }
 
 function belongsToPage(film, page) {
-  const override = FilmEditor.get(film.id).category;
+  const preferences = FilmEditor.get(film.id);
+  if (preferences.removed) return false;
+  const override = preferences.category;
   const effective = override || film.category;
   if (page.latest) return override ? override === 'חדש' : film.added === latestAdded && film.category !== 'איך';
   if (!page.category) return effective !== 'איך' && effective !== 'חדש';
@@ -188,7 +190,21 @@ function card(film) {
       document.querySelector('#move-status').textContent = 'ההעברה לא נשמרה. בדקי שאחסון האתר מותר בדפדפן ונסי שוב.';
     }
   });
-  moveField.append(moveLabel, moveSelect);
+  const removeButton = node('button', 'הסרה מהמחברת', 'edit-film remove-film');
+  removeButton.type = 'button';
+  removeButton.setAttribute('aria-label', `להסיר את ${film.title} מהמחברת`);
+  removeButton.addEventListener('click', async () => {
+    if (!window.confirm(`להסיר את ״${film.title}״ מהמחברת? הכרטיס ייעלם מכל הלשוניות. שחזור אפשרי רק על ידי ייבוא גיבוי ישן או דרך אינסטינקט.`)) return;
+    removeButton.disabled = true;
+    try {
+      await FilmEditor.remove(film.id);
+      document.querySelector('#move-status').textContent = `${film.title} הוסר מהמחברת.`;
+    } catch {
+      removeButton.disabled = false;
+      document.querySelector('#move-status').textContent = 'ההסרה לא נשמרה. בדקי שאחסון האתר מותר בדפדפן ונסי שוב.';
+    }
+  });
+  moveField.append(moveLabel, moveSelect, removeButton);
   const filmDate = FilmDates.effective(film, preferences);
   const dateLine = node('p', undefined, 'film-date');
   if (filmDate) {
@@ -215,8 +231,8 @@ function card(film) {
 }
 
 function updateContents() {
-  document.querySelector('#total-films').textContent = films.filter(film => film.category !== 'איך' && film.category !== 'חדש').length;
-  const latest = [...films].filter(film => film.category !== 'איך').sort(newestFirst);
+  document.querySelector('#total-films').textContent = films.filter(film => film.category !== 'איך' && film.category !== 'חדש' && !FilmEditor.get(film.id).removed).length;
+  const latest = [...films].filter(film => film.category !== 'איך' && !FilmEditor.get(film.id).removed).sort(newestFirst);
   document.querySelector('#last-updated').textContent = latest.length ? `תוספת אחרונה · ${dateLabel(latest[0].added)}` : 'הסיפור הראשון עוד לפנינו';
   document.querySelectorAll('[data-count]').forEach(element => {
     const page = pages[element.dataset.count];
