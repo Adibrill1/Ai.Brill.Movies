@@ -11,7 +11,7 @@ for film in films:
     assert film['watchUrl'] not in urls, 'Duplicate watch link'
     ids.add(film['id']); urls.add(film['watchUrl'])
     datetime.date.fromisoformat(film['added'])
-    assert film['category'] in ('פסטיבל', 'קהילה', 'הדגמה רשמית')
+    assert film['category'] in ('סרטים', 'איך', 'הדגמה רשמית')
     assert film['tools'] is None or isinstance(film['tools'], str)
     for key in ('watchUrl', 'sourceUrl'):
         parsed = urlparse(film[key]); assert parsed.scheme == 'https' and parsed.netloc

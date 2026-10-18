@@ -4,10 +4,9 @@ const pages = {
   home: { title: 'תוכן העניינים', number: '01' },
   new: { title: 'חדש', subtitle: 'הסרטים מהתוספת האחרונה למחברת', latest: true, number: '02' },
   all: { title: 'כל הסרטים', subtitle: 'כל הסיפורים, במקום אחד', number: '03' },
-  festival: { title: 'סרטי פסטיבלים', subtitle: 'סרטים שנבחרו לבמה הגדולה', category: 'פסטיבל', number: '04' },
-  community: { title: 'יצירה מהקהילה', subtitle: 'יוצרים עצמאיים, רעיונות אישיים', category: 'קהילה', number: '05' },
-  official: { title: 'אהבתי', subtitle: 'הסרטים שאהבתי ורוצה לחזור אליהם', category: 'הדגמה רשמית', number: '06' },
-  disliked: { title: 'פחות אהבתי', subtitle: 'הסרטים שבחרת להעביר לכאן', category: 'פחות אהבתי', number: '07' }
+  how: { title: 'איך', subtitle: 'טכניקות, ספריות וכלים ליצירת סרטים', category: 'איך', number: '04' },
+  official: { title: 'אהבתי', subtitle: 'הסרטים שאהבתי ורוצה לחזור אליהם', category: 'הדגמה רשמית', number: '05' },
+  disliked: { title: 'פחות אהבתי', subtitle: 'הסרטים שבחרת להעביר לכאן', category: 'פחות אהבתי', number: '06' }
 };
 const grid = document.querySelector('#grid');
 const search = document.querySelector('#search');
@@ -20,12 +19,14 @@ let activePage = 'home';
 let selectedFilm = null;
 const dateLabel = iso => iso.split('-').reverse().join('.');
 // Keep stored category values and existing links compatible with older backups.
-const categoryNames = { 'פסטיבל': 'סרטי פסטיבלים', 'קהילה': 'יצירה מהקהילה', 'הדגמה רשמית': 'אהבתי' };
+const categoryNames = { 'פסטיבל': 'סרטי פסטיבלים', 'קהילה': 'יצירה מהקהילה', 'הדגמה רשמית': 'אהבתי', 'סרטים': 'סרטים', 'איך': 'איך' };
 
 function belongsToPage(film, page) {
   const override = FilmEditor.get(film.id).category;
-  if (page.latest) return override ? override === 'חדש' : film.added === latestAdded;
-  return !page.category || (override || film.category) === page.category;
+  const effective = override || film.category;
+  if (page.latest) return override ? override === 'חדש' : film.added === latestAdded && film.category !== 'איך';
+  if (!page.category) return effective !== 'איך';
+  return effective === page.category;
 }
 
 function arrowIcon() {
@@ -136,7 +137,7 @@ function card(film) {
   const body = node('div', undefined, 'card-body');
   const top = node('div', undefined, 'topline');
   const category = preferences.category || film.category;
-  const categoryClass = { 'קהילה': 'community', 'הדגמה רשמית': 'official', 'פסטיבל': 'festival', 'פחות אהבתי': 'disliked', 'חדש': 'new' }[category];
+  const categoryClass = { 'קהילה': 'community', 'הדגמה רשמית': 'official', 'פסטיבל': 'festival', 'פחות אהבתי': 'disliked', 'חדש': 'new', 'סרטים': 'films', 'איך': 'how' }[category];
   const source = externalLink('מקור ומידע', film.sourceUrl, 'source', film.title);
   source.append(document.createTextNode('מקור ומידע '), arrowIcon());
   top.append(node('span', category === 'הדגמה רשמית' ? categoryNames[category] : category, `badge category-${categoryClass}`), source);
@@ -186,8 +187,8 @@ function card(film) {
 }
 
 function updateContents() {
-  document.querySelector('#total-films').textContent = films.length;
-  const latest = [...films].sort(newestFirst);
+  document.querySelector('#total-films').textContent = films.filter(film => film.category !== 'איך').length;
+  const latest = [...films].filter(film => film.category !== 'איך').sort(newestFirst);
   document.querySelector('#last-updated').textContent = latest.length ? `תוספת אחרונה · ${dateLabel(latest[0].added)}` : 'הסיפור הראשון עוד לפנינו';
   document.querySelectorAll('[data-count]').forEach(element => {
     const page = pages[element.dataset.count];
@@ -218,7 +219,7 @@ function render() {
   visible.sort(compareFilms);
   document.querySelector('#date-sort-note').hidden = !['newest', 'oldest'].includes(sort.value);
   grid.replaceChildren(...visible.map(card));
-  document.querySelector('#count').textContent = loaded ? `${visible.length} מתוך ${inPage.length} סרטים` : 'טוענים את הסרטים…';
+  document.querySelector('#count').textContent = loaded ? `${visible.length} מתוך ${inPage.length} ${page.category === 'איך' ? 'פריטים' : 'סרטים'}` : 'טוענים את הסרטים…';
   document.querySelector('#empty').hidden = !loaded || visible.length > 0;
   document.querySelector('#reset').hidden = !query;
   document.querySelector('#page-note').textContent = query ? `תוצאות עבור ״${search.value.trim()}״` : 'כל סרט הוא עולם קטן.';
@@ -278,7 +279,7 @@ async function loadFilms() {
     const data = await response.json();
     if (!Array.isArray(data)) throw new Error('Film data must be a list');
     films = data;
-    latestAdded = films.reduce((date, film) => film.added > date ? film.added : date, '');
+    latestAdded = films.reduce((date, film) => film.category !== 'איך' && film.added > date ? film.added : date, '');
     loaded = true;
     updateContents();
     render();
