@@ -4,7 +4,8 @@ const pages = {
   home: { title: 'תוכן העניינים', number: '01' },
   new: { title: 'חדש', subtitle: 'הסרטים מהתוספת האחרונה למחברת', latest: true, number: '02' },
   all: { title: 'סרטים', subtitle: 'כל הסיפורים, במקום אחד', number: '03' },
-  how: { title: 'איך', subtitle: 'טכניקות, ספריות וכלים ליצירת סרטים', category: 'איך', number: '04' }
+  how: { title: 'איך', subtitle: 'טכניקות, ספריות וכלים ליצירת סרטים', category: 'איך', number: '04' },
+  inbox: { title: 'ממתינים', subtitle: 'כל הסרטים שמחכים למיון, מכל התוספות', inbox: true, number: '05' }
 };
 const grid = document.querySelector('#grid');
 const search = document.querySelector('#search');
@@ -42,6 +43,7 @@ function belongsToPage(film, page) {
   const override = preferences.category;
   const effective = override || film.category;
   if (page.latest) return override ? override === 'חדש' : film.added === latestAdded && film.category !== 'איך';
+  if (page.inbox) return effective === 'חדש';
   if (!page.category) return effective !== 'איך' && effective !== 'חדש';
   return effective === page.category;
 }
