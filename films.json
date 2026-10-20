@@ -1805,4 +1805,75 @@
     "durationSeconds": 11,
     "durationSource": "https://x.com/rexan_wong/status/2103707054108299437"
   }
+,
+  {
+    "id": "120",
+    "title": "HyperFrames - כותבים HTML, מקבלים וידאו",
+    "creator": "HeyGen (GitHub)",
+    "added": "2026-10-20",
+    "tools": "Claude Code · HTML/CSS",
+    "category": "חדש",
+    "description": "הפריימוורק שעומד מאחורי רוב סרטוני הקוד של Opus 5.5: כותבים HTML/CSS והוא מרנדר MP4 אמיתי, עם חבילת npm, רישיון Apache 2.0 ו-quickstart לסוכני קוד. הבסיס הטכני לכל וורקפלו \"סרטון מקוד\". 67.8 אלף כוכבים ב-GitHub.",
+    "watchUrl": "https://github.com/heygen-com/hyperframes",
+    "sourceUrl": "https://github.com/heygen-com/hyperframes",
+    "poster": "https://opengraph.githubassets.com/1/heygen-com/hyperframes",
+    "posterFallback": "https://opengraph.githubassets.com/1/heygen-com/hyperframes",
+    "durationSeconds": null
+  },
+  {
+    "id": "121",
+    "title": "brag - מהפרויקט שבניתם לסרטון השקה בפקודה אחת",
+    "creator": "latent-spaces (GitHub)",
+    "added": "2026-10-20",
+    "tools": "Claude Code",
+    "category": "חדש",
+    "description": "סוכן שלוקח את הפרויקט שסיימתם עכשיו ומייצר ממנו סרטון launch קצר ומוכן לשיתוף בפקודה אחת - שימושי מיד לכל מי שבונה מוצרים ורוצה סרטוני שיווק בלי עורך וידאו. 17 אלף כוכבים ב-GitHub.",
+    "watchUrl": "https://github.com/latent-spaces/brag",
+    "sourceUrl": "https://github.com/latent-spaces/brag",
+    "poster": "https://opengraph.githubassets.com/1/latent-spaces/brag",
+    "posterFallback": "https://opengraph.githubassets.com/1/latent-spaces/brag",
+    "durationSeconds": null
+  },
+  {
+    "id": "122",
+    "title": "Herk Edit Kit - 15 סקילים לעריכת וידאו עם Claude Code או Codex",
+    "creator": "Nate Herk (GitHub)",
+    "added": "2026-10-20",
+    "tools": "Claude Code · Codex",
+    "category": "חדש",
+    "description": "ערכת סקילים לעריכת סרטונים, רילס ו-Shorts דרך סוכן קוד: חיתוכים מונחי-תמליל, סיפור, ומעל 400 מעברי מושן מוכנים. למי שיש חומר גולמי ורוצה לערוך אותו בקוד.",
+    "watchUrl": "https://github.com/nateherkai/herk-edit-kit",
+    "sourceUrl": "https://github.com/nateherkai/herk-edit-kit",
+    "poster": "https://opengraph.githubassets.com/1/nateherkai/herk-edit-kit",
+    "posterFallback": "https://opengraph.githubassets.com/1/nateherkai/herk-edit-kit",
+    "durationSeconds": null
+  },
+  {
+    "id": "123",
+    "title": "איך בניתי פרומו של 30 שניות לאפליקציה, כולו בקוד",
+    "creator": "Rishabh Sxn (DEV)",
+    "added": "2026-10-20",
+    "tools": "Claude Code · Remotion",
+    "category": "חדש",
+    "description": "תיעוד אמיתי מקצה לקצה: פרויקט Remotion, סקיל Claude Code עם 9 שלבים ו-7 שערי אישור אנושיים, מוזיקה שנוצרה מקומית, קריינות ElevenLabs, וסוכן מבקר ששופט רק פריימים מרונדרים - כולל הקוד בקוד פתוח.",
+    "watchUrl": "https://dev.to/rishabhsxn/making-a-30-second-app-promo-in-code-with-claude-code-and-remotion-5bo8",
+    "sourceUrl": "https://dev.to/rishabhsxn/making-a-30-second-app-promo-in-code-with-claude-code-and-remotion-5bo8",
+    "poster": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fzbwpufichq11tc3xhb5v.png",
+    "posterFallback": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fzbwpufichq11tc3xhb5v.png",
+    "durationSeconds": null
+  },
+  {
+    "id": "124",
+    "title": "Motion Engineering: בוט אחד, חמש מחלקות, אולפן שלם",
+    "creator": "Mori (@0xjmori)",
+    "added": "2026-10-20",
+    "tools": "Claude Opus 5.5",
+    "category": "חדש",
+    "description": "מדריך ארוך להפיכת Claude Opus 5.5 לאולפן מושן שלם: הבוט חוקר רפרנסים, מתכנן את הסרט, כותב קוד אנימציה, מרנדר תצוגות, מזהה טעויות ויזואליות ומתקן - עם שערי אישור קריאייטיביים לאדם.",
+    "watchUrl": "https://x.com/0xjmori/status/2111793914206171234",
+    "sourceUrl": "https://x.com/0xjmori/status/2111793914206171234",
+    "poster": "https://pbs.twimg.com/media/HU6UB0RWoAApw3X.jpg",
+    "posterFallback": "https://pbs.twimg.com/media/HU6UB0RWoAApw3X.jpg",
+    "durationSeconds": null
+  }
 ]
