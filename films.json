@@ -1876,4 +1876,75 @@
     "posterFallback": "https://pbs.twimg.com/media/HU6UB0RWoAApw3X.jpg",
     "durationSeconds": null
   }
+,
+  {
+    "id": "125",
+    "title": "claude-motion - ערכת מושן-דיזיין לסוכני קוד",
+    "creator": "whaleyxbt (GitHub)",
+    "added": "2026-10-21",
+    "tools": "Claude Code · Cursor · Codex",
+    "category": "חדש",
+    "description": "ערכה שלא רק מלמדת את הסוכן את ה-API אלא \"טעם\": מושנת לבדוק את הפריימים של עצמו, מנוע סאונד מובנה, ורינדור סימולציות ווב לוידאו 60fps. עובד מיד עם Claude Code ו-Cursor, וגם Codex/OpenCode.",
+    "watchUrl": "https://github.com/whaleyxbt/claude-motion",
+    "sourceUrl": "https://github.com/whaleyxbt/claude-motion",
+    "poster": "https://opengraph.githubassets.com/1/whaleyxbt/claude-motion",
+    "posterFallback": "https://opengraph.githubassets.com/1/whaleyxbt/claude-motion",
+    "durationSeconds": null
+  },
+  {
+    "id": "126",
+    "title": "video-talkcraft - סרטוני הסבר מונחי-קריינות כסקיל לסוכן",
+    "creator": "Vincentwei1021 (GitHub)",
+    "added": "2026-10-21",
+    "tools": "Claude Code · Codex",
+    "category": "חדש",
+    "description": "הופך Claude Code/Codex לאולפן סרטוני \"טוקינג וידאו\": סנכרון ברמת מילה לקריינות, 108 כרטיסי מתכוני מושן, מערכת מצלמה נגד מראה של מצגת, וגלריית תצוגות חיות. רישיון לשימוש לא-מסחרי בלבד.",
+    "watchUrl": "https://github.com/Vincentwei1021/video-talkcraft",
+    "sourceUrl": "https://github.com/Vincentwei1021/video-talkcraft",
+    "poster": "https://opengraph.githubassets.com/1/Vincentwei1021/video-talkcraft",
+    "posterFallback": "https://opengraph.githubassets.com/1/Vincentwei1021/video-talkcraft",
+    "durationSeconds": null
+  },
+  {
+    "id": "127",
+    "title": "הטריק הנכון לבקש וידאו מ-Opus 5.5: renderFrame(t)",
+    "creator": "super_lewis (DEV)",
+    "added": "2026-10-21",
+    "tools": "Claude Opus 5.5 · ffmpeg",
+    "category": "חדש",
+    "description": "הטכניקה שמאחורי סרטוני הקוד: במקום לבקש \"וידאו\", מבקשים עמוד HTML עם פונקציית renderFrame(t) דטרמיניסטית, ודפדפן headless קורא לה פריים-אחר-פריים ל-ffmpeg - כולל פרומפט מלא, קוד רינדור ועלות אמיתית.",
+    "watchUrl": "https://dev.to/super_lewis/how-to-render-a-motion-graphics-video-with-claude-opus-55-prompt-frame-renderer-ffmpeg-and-real-3e1g",
+    "sourceUrl": "https://dev.to/super_lewis/how-to-render-a-motion-graphics-video-with-claude-opus-55-prompt-frame-renderer-ffmpeg-and-real-3e1g",
+    "poster": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fly6yho3exp8dvsttipb4.png",
+    "posterFallback": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fly6yho3exp8dvsttipb4.png",
+    "durationSeconds": null
+  },
+  {
+    "id": "128",
+    "title": "10 סרטוני מושן ב-3 ימים: הווורקפלו הפתוח",
+    "creator": "Gajanan Rajput (Medium)",
+    "added": "2026-10-21",
+    "tools": "Claude Code · claude-motion-design",
+    "category": "חדש",
+    "description": "פירוק מלא של הפייפליין: הקוד, זרימת העבודה, הגדרת האודיו והטעויות - והכל ארוז כסקיל Claude Code פתוח שעובד בלי After Effects ובלי רישיון Remotion.",
+    "watchUrl": "https://medium.com/@rajputgajanan50/claude-opus-5-5-motion-design-how-i-made-10-videos-in-3-days-365bfd0e68eb",
+    "sourceUrl": "https://medium.com/@rajputgajanan50/claude-opus-5-5-motion-design-how-i-made-10-videos-in-3-days-365bfd0e68eb",
+    "poster": "https://miro.medium.com/v2/resize:fit:1000/1*eXgPD1hLZK0ZzUx5l5pGPQ.png",
+    "posterFallback": "https://miro.medium.com/v2/resize:fit:1000/1*eXgPD1hLZK0ZzUx5l5pGPQ.png",
+    "durationSeconds": null
+  },
+  {
+    "id": "129",
+    "title": "Capsule Cinema - מזקקים סרטון Opus אחד למתכון שמודלים זולים משכפלים",
+    "creator": "JuneYaooo (GitHub)",
+    "added": "2026-10-21",
+    "tools": "Claude Opus 5.5",
+    "category": "חדש",
+    "description": "גישה חכמה לחיסכון: יוצרים סרטון פעם אחת עם Claude Opus, מזקקים את השיטה ל\"מתכון וידאו\" (מבנה, סטוריבורד, שערי איכות), ומודלים זולים יותר משכפלים את האפקט לפי המתכון.",
+    "watchUrl": "https://github.com/JuneYaooo/cheap-claude-video",
+    "sourceUrl": "https://github.com/JuneYaooo/cheap-claude-video",
+    "poster": "https://opengraph.githubassets.com/1/JuneYaooo/cheap-claude-video",
+    "posterFallback": "https://opengraph.githubassets.com/1/JuneYaooo/cheap-claude-video",
+    "durationSeconds": null
+  }
 ]
