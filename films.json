@@ -1947,4 +1947,77 @@
     "posterFallback": "https://opengraph.githubassets.com/1/JuneYaooo/cheap-claude-video",
     "durationSeconds": null
   }
+,
+  {
+    "id": "130",
+    "title": "Motion Video Kit - סקיל לפרסומות השקה ברמה מקצועית",
+    "creator": "echris6 (GitHub)",
+    "added": "2026-10-22",
+    "tools": "Claude Code · HTML/GSAP · Three.js",
+    "category": "חדש",
+    "description": "סקיל Claude Code שנבנה מלימוד של 28 סרטי השקה מקצועיים של SaaS: פוקד AI + מושן בקוד (HTML/GSAP), Three.js סלקטיבי, ולולאת ביקורת עצמאית (\"Gauntlet\") עם שלושה מסחריים לדוגמה.",
+    "watchUrl": "https://github.com/echris6/motion-video-kit",
+    "sourceUrl": "https://github.com/echris6/motion-video-kit",
+    "poster": "https://opengraph.githubassets.com/1/echris6/motion-video-kit",
+    "posterFallback": "https://opengraph.githubassets.com/1/echris6/motion-video-kit",
+    "durationSeconds": null
+  },
+  {
+    "id": "131",
+    "title": "איך אני עורך סרטוני YouTube עם Opus 5.5 - 9 טיפים + הפרומפט המדויק",
+    "creator": "Learn With Seb",
+    "added": "2026-10-22",
+    "tools": "Claude Code · HyperFrames",
+    "category": "חדש",
+    "description": "זווית שונה: לא לייצר אלא לערוך. מושן-גרפיקס, אפקטים וג'אמפ-קאטים ש-Claude Code מוסיף לסרטון דיבור קיים דרך סקיל HyperFrames, עם הפרומפט המלא שהכותב משתמש בו בעצמו.",
+    "watchUrl": "https://www.learnwithseb.com/blog/edit-youtube-videos-with-claude-opus-5-5/",
+    "sourceUrl": "https://www.learnwithseb.com/blog/edit-youtube-videos-with-claude-opus-5-5/",
+    "poster": "https://www.learnwithseb.com/og-image.png",
+    "posterFallback": "https://www.learnwithseb.com/og-image.png",
+    "durationSeconds": null
+  },
+  {
+    "id": "132",
+    "title": "מהקליפ הראשון ועד פייפליין מושן מלא - מדריך מעשי",
+    "creator": "DesignLayer",
+    "added": "2026-10-22",
+    "tools": "Claude Code",
+    "category": "חדש",
+    "description": "מדריך של 18 דקות קריאה: איך הרינדור עובד בכלל, התקנה, פרומפט של שורה אחת למתחילים, ועד פייפליין מלא עם קוד. נקודת פתיחה מסודרת למי שמתחיל מאפס.",
+    "watchUrl": "https://design-layer.com/en/articles/claude-code-video-guide",
+    "sourceUrl": "https://design-layer.com/en/articles/claude-code-video-guide",
+    "poster": "https://design-layer.com/article-screenshots/en-claude-code-pipeline.webp",
+    "posterFallback": "https://design-layer.com/article-screenshots/en-claude-code-pipeline.webp",
+    "durationSeconds": null
+  },
+  {
+    "id": "133",
+    "title": "איך Every הופכים מאמרים לסרטונים סושיאל עם Hyperframes",
+    "creator": "Every (@every)",
+    "added": "2026-10-22",
+    "tools": "Claude · Hyperframes",
+    "category": "חדש",
+    "description": "מתכון עבודה אמיתי של מגזין Every: 4 שלבים ממאמר לסרטון של 18 שניות (הוק, סטוריבורד עם אישור, אנימציה ב-Hyperframes, סבבי ביקורת), והטיפ הכי שווה - לבקש מקלוד לשמור את התהליך כסקיל לשימוש חוזר.",
+    "watchUrl": "https://x.com/every/status/2108302461077536789",
+    "sourceUrl": "https://x.com/every/status/2108302461077536789",
+    "poster": "https://pbs.twimg.com/amplify_video_thumb/2108302415162380288/img/pNIy4MQwqbCJ4j5U.jpg",
+    "posterFallback": "https://pbs.twimg.com/amplify_video_thumb/2108302415162380288/img/pNIy4MQwqbCJ4j5U.jpg",
+    "durationSeconds": 35,
+    "durationSource": "https://x.com/every/status/2108302461077536789"
+  },
+  {
+    "id": "134",
+    "title": "טוטוריאל וידאו מלא: הסוג החדש של סרטונים שקלוד מייצר - Futurepedia",
+    "creator": "Futurepedia (YouTube)",
+    "added": "2026-10-22",
+    "tools": "Claude",
+    "category": "חדש",
+    "description": "טוטוריאל וידאו (11:19) מערוץ Futurepedia, שלפי הכותרת מראה מקצה לקצה איך Claude כותב אנימציות כקוד לסרטוני מושן והסברים, בלי מחולל וידאו בכלל. התוכן טרם נבדק מעבר לכותרת והערוץ.",
+    "watchUrl": "https://www.youtube.com/watch?v=Ge1B-Ok1Pfk",
+    "sourceUrl": "https://www.youtube.com/watch?v=Ge1B-Ok1Pfk",
+    "poster": "https://i.ytimg.com/vi/Ge1B-Ok1Pfk/maxresdefault.jpg",
+    "posterFallback": "https://i.ytimg.com/vi/Ge1B-Ok1Pfk/maxresdefault.jpg",
+    "durationSeconds": 679,
+    "durationSource": "https://www.youtube.com/watch?v=Ge1B-Ok1Pfk"
+  }
 ]
