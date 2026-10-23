@@ -2218,8 +2218,8 @@
     "added": "2026-10-23",
     "tools": null,
     "category": "Adi",
-    "description": "הסטודיו שלי: ספריית הסגנונות לסרטונים מקוד.",
-    "watchUrl": "file:///Users/adibrill/Desktop/Adi/Opus5.5/Styles/index.html",
+    "description": "הסטודיו שלי: ספריית הסגנונות לסרטונים מקוד. שים לב: הקישור עובד רק על המק שלך, כשהשרת המקומי של הספרייה פועל.",
+    "watchUrl": "http://127.0.0.1:4777/",
     "sourceUrl": "https://adibrill1.github.io/Ai.Brill.Movies/"
   }
 ]
