@@ -112,11 +112,57 @@ function externalLink(label, url, className, filmTitle) {
   return link;
 }
 
+// A local file (file://) cannot open from a web page, so a local card copies
+// the address for pasting into the address bar instead of navigating.
+async function copyLocalAddress(url) {
+  try {
+    await navigator.clipboard.writeText(url);
+    return true;
+  } catch { /* fall through to the legacy path */ }
+  try {
+    const area = node('textarea');
+    area.value = url;
+    area.readOnly = true;
+    area.style.cssText = 'position:fixed;top:0;opacity:0';
+    document.body.append(area);
+    area.select();
+    const copied = document.execCommand('copy');
+    area.remove();
+    return copied;
+  } catch {
+    return false;
+  }
+}
+
+function localCopyPhoto(film) {
+  const button = node('button', undefined, 'film-photo local-copy');
+  button.type = 'button';
+  button.setAttribute('aria-label', `העתקת הכתובת המקומית — ${film.title} (אחרי ההעתקה מדביקים בשורת הכתובת של הדפדפן)`);
+  button.addEventListener('click', async () => {
+    const hint = button.querySelector('.copy-hint');
+    const announce = (text) => {
+      hint.textContent = text;
+      window.clearTimeout(button.copyTimer);
+      button.copyTimer = window.setTimeout(() => { hint.textContent = 'העתקת הכתובת המקומית'; }, 8000);
+      document.querySelector('#move-status').textContent = text;
+    };
+    if (await copyLocalAddress(film.watchUrl)) {
+      announce('הכתובת הועתקה ✓ מדביקים בשורת הכתובת של הדפדפן');
+    } else {
+      window.prompt('ההעתקה האוטומטית לא הצליחה. להעתיק ידנית את הכתובת:', film.watchUrl);
+    }
+  });
+  return button;
+}
+
 function card(film) {
   const article = node('article', undefined, 'card');
   article.id = `film-${film.id}`;
   const preferences = FilmEditor.get(film.id);
-  const photo = externalLink('לצפייה בסרט', film.watchUrl, 'film-photo', film.title);
+  const isLocalFile = film.watchUrl.startsWith('file:');
+  const photo = isLocalFile
+    ? localCopyPhoto(film)
+    : externalLink('לצפייה בסרט', film.watchUrl, 'film-photo', film.title);
   const media = node('div', undefined, 'film-media');
   const color = [...film.id].reduce((sum, char) => sum + char.charCodeAt(0), 0) % 5;
   const art = node('div', undefined, `paper-art art-${color}`);
@@ -139,6 +185,7 @@ function card(film) {
   const number = node('span', `NO. ${film.id}`, 'film-number');
   number.dir = 'ltr';
   photo.append(media, number);
+  if (isLocalFile) photo.append(node('span', 'העתקת הכתובת המקומית', 'copy-hint'));
   const details = node('div', undefined, 'film-details');
   const seconds = filmDuration(film);
   const duration = node('span', undefined, 'film-duration');

@@ -34,6 +34,9 @@
 .card .film-photo, .card:nth-child(3n+2) .film-photo, .card:nth-child(3n) .film-photo { transform: none; }
 .poster { object-fit: scale-down; }
 .film-photo { display: block; }
+/* Local studio card: the whole photo acts as a copy button. */
+button.film-photo { width: 100%; font: inherit; color: inherit; cursor: copy; text-align: inherit; }
+.copy-hint { position: absolute; bottom: 4px; right: 10px; max-width: 80%; font: 10px/1.5 monospace; color: var(--rust); }
 .film-details { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 3px 10px; margin: -10px 0 9px; }
 .film-duration { font-size: 13px; color: #45533e; padding: 5px 8px; background: #eeeee1; border-radius: 3px; }
 .film-duration time { display: inline-block; font-variant-numeric: tabular-nums; font-weight: 550; }
