@@ -4,12 +4,6 @@ from urllib.parse import urlparse
 root = pathlib.Path(__file__).parent
 films = json.loads((root / 'films.json').read_text())
 ids, urls = set(), set()
-# The studio chapter's clips and covers live in this repository: only assets/studio/<name>.(mp4|jpg|html) that exist.
-def local_asset(value):
-    if not re.fullmatch(r'assets/studio/[a-z0-9-]+\.(mp4|jpg|html)', value): return False
-    # inside the repository the file must exist; the daily-update check runs this file alone in a temp folder
-    if (root / 'assets').is_dir(): assert (root / value).is_file(), ('missing file', value)
-    return True
 for film in films:
     for key in ('id', 'title', 'creator', 'added', 'category', 'description', 'watchUrl', 'sourceUrl'):
         assert isinstance(film[key], str) and film[key].strip(), (film.get('id'), key)
@@ -17,12 +11,11 @@ for film in films:
     assert film['watchUrl'] not in urls, 'Duplicate watch link'
     ids.add(film['id']); urls.add(film['watchUrl'])
     datetime.date.fromisoformat(film['added'])
-    assert film['category'] in ('סרטים', 'איך', 'הדגמה רשמית', 'חדש', 'מעבדת ויז׳ואל', 'הסטודיו שלי')
+    assert film['category'] in ('סרטים', 'איך', 'הדגמה רשמית', 'חדש', 'מעבדת ויז׳ואל')
     assert film['tools'] is None or isinstance(film['tools'], str)
     for key in ('watchUrl', 'sourceUrl'):
-        if local_asset(film[key]): continue
         parsed = urlparse(film[key]); assert parsed.scheme == 'https' and parsed.netloc
-    if film.get('poster') and not local_asset(film['poster']): assert film['poster'].startswith(('https://', 'data:image/jpeg;base64,'))
+    if film.get('poster'): assert film['poster'].startswith(('https://', 'data:image/jpeg;base64,'))
     duration = film.get('durationSeconds')
     assert duration is None or (type(duration) is int and 0 < duration < 86400), (film['id'], 'durationSeconds')
     if film.get('durationSource'):
