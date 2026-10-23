@@ -11,9 +11,11 @@ for film in films:
     assert film['watchUrl'] not in urls, 'Duplicate watch link'
     ids.add(film['id']); urls.add(film['watchUrl'])
     datetime.date.fromisoformat(film['added'])
-    assert film['category'] in ('סרטים', 'איך', 'הדגמה רשמית', 'חדש', 'מעבדת ויז׳ואל')
+    assert film['category'] in ('סרטים', 'איך', 'הדגמה רשמית', 'חדש', 'מעבדת ויז׳ואל', 'Adi')
     assert film['tools'] is None or isinstance(film['tools'], str)
     for key in ('watchUrl', 'sourceUrl'):
+        # the Adi chapter may link to a file on this computer (file://); every other link must be https
+        if key == 'watchUrl' and film['category'] == 'Adi' and film[key].startswith('file:///'): continue
         parsed = urlparse(film[key]); assert parsed.scheme == 'https' and parsed.netloc
     if film.get('poster'): assert film['poster'].startswith(('https://', 'data:image/jpeg;base64,'))
     duration = film.get('durationSeconds')
