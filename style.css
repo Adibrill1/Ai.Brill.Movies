@@ -90,6 +90,8 @@
 .tab-disliked, .swatch-disliked { background: #d5b9bd; }
 .tab-inbox, .swatch-inbox { background: var(--pink); }
 .tab-lab, .swatch-lab { background: var(--blue); }
+.tab-studio, .swatch-studio { background: #e2b9a0; }
+.category-studio::before { background: var(--rust); }
 .category-disliked { background: #efe0e3; color: #755560; }
 .category-new { background: #e3ecde; color: #486044; }
 .move-film { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 16px; }
