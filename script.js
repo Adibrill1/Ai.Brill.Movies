@@ -5,7 +5,8 @@ const pages = {
   new: { title: 'חדש', subtitle: 'הסרטים מהתוספת האחרונה למחברת', latest: true, number: '02' },
   all: { title: 'סרטים', subtitle: 'כל הסיפורים, במקום אחד', number: '03' },
   how: { title: 'איך', subtitle: 'טכניקות, ספריות וכלים ליצירת סרטים', category: 'איך', number: '04' },
-  inbox: { title: 'ממתינים', subtitle: 'כל הסרטים שמחכים למיון, מכל התוספות', inbox: true, number: '05' }
+  inbox: { title: 'ממתינים', subtitle: 'כל הסרטים שמחכים למיון, מכל התוספות', inbox: true, number: '05' },
+  lab: { title: 'מעבדת ויז׳ואל', subtitle: 'כלים וסביבות ליצירת ויז׳ואל בקוד ובדפדפן', category: 'מעבדת ויז׳ואל', number: '06' }
 };
 const grid = document.querySelector('#grid');
 const search = document.querySelector('#search');
@@ -19,7 +20,7 @@ let activePage = 'home';
 let selectedFilm = null;
 const dateLabel = iso => iso.split('-').reverse().join('.');
 // Keep stored category values and existing links compatible with older backups.
-const categoryNames = { 'פסטיבל': 'סרטי פסטיבלים', 'קהילה': 'יצירה מהקהילה', 'הדגמה רשמית': 'אהבתי', 'סרטים': 'סרטים', 'איך': 'איך' };
+const categoryNames = { 'פסטיבל': 'סרטי פסטיבלים', 'קהילה': 'יצירה מהקהילה', 'הדגמה רשמית': 'אהבתי', 'סרטים': 'סרטים', 'איך': 'איך', 'מעבדת ויז׳ואל': 'מעבדת ויז׳ואל' };
 
 function isLoved(film) {
   const preferences = FilmEditor.get(film.id);
@@ -42,9 +43,9 @@ function belongsToPage(film, page) {
   if (preferences.removed) return false;
   const override = preferences.category;
   const effective = override || film.category;
-  if (page.latest) return override ? override === 'חדש' : film.added === latestAdded && film.category !== 'איך';
+  if (page.latest) return override ? override === 'חדש' : film.added === latestAdded && film.category !== 'איך' && film.category !== 'מעבדת ויז׳ואל';
   if (page.inbox) return effective === 'חדש';
-  if (!page.category) return effective !== 'איך' && effective !== 'חדש';
+  if (!page.category) return effective !== 'איך' && effective !== 'חדש' && effective !== 'מעבדת ויז׳ואל';
   return effective === page.category;
 }
 
@@ -156,7 +157,7 @@ function card(film) {
   const body = node('div', undefined, 'card-body');
   const top = node('div', undefined, 'topline');
   const category = preferences.category || film.category;
-  const categoryClass = { 'קהילה': 'community', 'הדגמה רשמית': 'official', 'פסטיבל': 'festival', 'פחות אהבתי': 'disliked', 'חדש': 'new', 'סרטים': 'films', 'איך': 'how' }[category];
+  const categoryClass = { 'קהילה': 'community', 'הדגמה רשמית': 'official', 'פסטיבל': 'festival', 'פחות אהבתי': 'disliked', 'חדש': 'new', 'סרטים': 'films', 'איך': 'how', 'מעבדת ויז׳ואל': 'lab' }[category];
   const source = externalLink('מקור ומידע', film.sourceUrl, 'source', film.title);
   source.append(document.createTextNode('מקור ומידע '), arrowIcon());
   top.append(node('span', category === 'הדגמה רשמית' ? categoryNames[category] : category, `badge category-${categoryClass}`), source);
@@ -233,8 +234,8 @@ function card(film) {
 }
 
 function updateContents() {
-  document.querySelector('#total-films').textContent = films.filter(film => film.category !== 'איך' && film.category !== 'חדש' && !FilmEditor.get(film.id).removed).length;
-  const latest = [...films].filter(film => film.category !== 'איך' && !FilmEditor.get(film.id).removed).sort(newestFirst);
+  document.querySelector('#total-films').textContent = films.filter(film => film.category !== 'איך' && film.category !== 'חדש' && film.category !== 'מעבדת ויז׳ואל' && !FilmEditor.get(film.id).removed).length;
+  const latest = [...films].filter(film => film.category !== 'איך' && film.category !== 'מעבדת ויז׳ואל' && !FilmEditor.get(film.id).removed).sort(newestFirst);
   document.querySelector('#last-updated').textContent = latest.length ? `תוספת אחרונה · ${dateLabel(latest[0].added)}` : 'הסיפור הראשון עוד לפנינו';
   document.querySelectorAll('[data-count]').forEach(element => {
     const page = pages[element.dataset.count];
@@ -266,7 +267,7 @@ function render() {
   visible.sort(compareFilms);
   document.querySelector('#date-sort-note').hidden = !['newest', 'oldest'].includes(sort.value);
   grid.replaceChildren(...visible.map(card));
-  document.querySelector('#count').textContent = loaded ? `${visible.length} מתוך ${inPage.length} ${page.category === 'איך' ? 'פריטים' : 'סרטים'}` : 'טוענים את הסרטים…';
+  document.querySelector('#count').textContent = loaded ? `${visible.length} מתוך ${inPage.length} ${(page.category === 'איך' || page.category === 'מעבדת ויז׳ואל') ? 'פריטים' : 'סרטים'}` : 'טוענים את הסרטים…';
   document.querySelector('#empty').hidden = !loaded || visible.length > 0;
   document.querySelector('#reset').hidden = !query;
   document.querySelector('#page-note').textContent = query ? `תוצאות עבור ״${search.value.trim()}״` : 'כל סרט הוא עולם קטן.';
@@ -326,7 +327,7 @@ async function loadFilms() {
     const data = await response.json();
     if (!Array.isArray(data)) throw new Error('Film data must be a list');
     films = data;
-    latestAdded = films.reduce((date, film) => film.category !== 'איך' && film.added > date ? film.added : date, '');
+    latestAdded = films.reduce((date, film) => film.category !== 'איך' && film.category !== 'מעבדת ויז׳ואל' && film.added > date ? film.added : date, '');
     loaded = true;
     updateContents();
     render();

@@ -2089,5 +2089,33 @@
       "poster": "https://cdn.magiccreator.ai/magiccreator/public/posts/how-to-use-claude-opus-5-5-to-make-videos/cover.webp",
       "posterFallback": "https://cdn.magiccreator.ai/magiccreator/public/posts/how-to-use-claude-opus-5-5-to-make-videos/cover.webp",
       "durationSeconds": null
+  },
+  {
+      "id": "140",
+      "title": "OriginKit - ספריית קומפוננטים מונפשים להעתקה ישירה לאתר",
+      "creator": "OriginKit",
+      "added": "2026-10-23",
+      "tools": "React · Motion · Framer · MCP",
+      "category": "מעבדת ויז׳ואל",
+      "description": "ספריית קומפוננטים מונפשים מוכנים לאתרים מודרניים: מעתיקים את הקוד, מדביקים ב-Framer, או מחברים לסוכן קוד דרך MCP. שים לב: חלק מהקומפוננטים חינמיים עם מגבלת העתקות ויש קטלוג מורחב בתשלום; חיבור למוזיקה דורש שילוב קוד.",
+      "watchUrl": "https://www.originkit.dev/",
+      "sourceUrl": "https://www.originkit.dev/",
+      "poster": "https://www.originkit.dev/og-image.png",
+      "posterFallback": "https://www.originkit.dev/og-image.png",
+      "durationSeconds": null
+  },
+  {
+      "id": "141",
+      "title": "Ladybug - אולפן אפקטים ויזואליים שרץ בדפדפן",
+      "creator": "Ladybug",
+      "added": "2026-10-23",
+      "tools": "דפדפן · ייצוא 4K ו-SVG",
+      "category": "מעבדת ויז׳ואל",
+      "description": "סטודיו לאפקטים ויזואליים שרץ כולו בדפדפן, והחומרים לא יוצאים מהמחשב: לוקים שדורשים בדרך כלל ימי עבודה ותוספים נבנים כאן תוך דקות, עם ייצוא 4K, SVG ווידאו שקוף, ולפי האתר גם תגובה למוזיקה. שים לב: הכלי לא נבדק בפועל.",
+      "watchUrl": "https://theladybug.app/",
+      "sourceUrl": "https://theladybug.app/",
+      "poster": "https://theladybug.app/og-image.png",
+      "posterFallback": "https://theladybug.app/og-image.png",
+      "durationSeconds": null
   }
 ]
