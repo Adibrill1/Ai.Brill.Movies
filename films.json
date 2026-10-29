@@ -2314,5 +2314,28 @@
         "url": "https://github.com/pbakaus/impeccable"
       }
     ]
+  },
+  {
+    "id": "157",
+    "title": "מאגרי תלת־ממד",
+    "creator": "מאגרים להורדת מודלים",
+    "added": "2026-10-30",
+    "tools": null,
+    "category": "Adi",
+    "description": "שני מאגרי תלת־ממד: Sketchfab — מאגר ענק של מודלים, חלקם להורדה חינם ברישיון Creative Commons (בדרך כלל נדרש קרדיט ליוצר, ויש גם מודלים בתשלום). Poly Haven — כל המאגר חינם לגמרי ברישיון CC0: תאורות HDRI, טקסטורות ומודלים, בלי תשלום, בלי הרשמה ובלי צורך בקרדיט. הקישורים נשמרו לעיון; לא בוצעו הורדות או התקנות.",
+    "watchUrl": "https://sketchfab.com/feed",
+    "sourceUrl": "https://polyhaven.com/",
+    "poster": "https://cdn.polyhaven.com/site_images/home/window_rend.jpg?width=630&quality=95&v=61684774",
+    "durationSeconds": null,
+    "links": [
+      {
+        "label": "Sketchfab",
+        "url": "https://sketchfab.com/feed"
+      },
+      {
+        "label": "Poly Haven",
+        "url": "https://polyhaven.com/"
+      }
+    ]
   }
 ]
