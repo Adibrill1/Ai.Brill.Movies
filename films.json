@@ -2291,5 +2291,28 @@
     "poster": "https://pbs.twimg.com/tweet_video_thumb/HVOodIwaoAACHPC.jpg",
     "posterFallback": "https://pbs.twimg.com/tweet_video_thumb/HVOodIwaoAACHPC.jpg",
     "durationSeconds": null
+  },
+  {
+    "id": "156",
+    "title": "UI UX",
+    "creator": "כלי עיצוב לממשקים",
+    "added": "2026-10-29",
+    "tools": null,
+    "category": "Adi",
+    "description": "קישורים לכלי UI UX לעבודה עם עוזרי קוד: UI UX Pro Max לתכנון ממשקים ו-Impeccable לשיפור העיצוב ולביקורת ממשק. הקישורים נשמרו לעיון; לא בוצעה התקנה.",
+    "watchUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+    "sourceUrl": "https://github.com/pbakaus/impeccable",
+    "poster": "https://repository-images.githubusercontent.com/1106996539/d7c84c2d-e797-405f-a868-87fb194e8432",
+    "durationSeconds": null,
+    "links": [
+      {
+        "label": "UI UX Pro Max",
+        "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill"
+      },
+      {
+        "label": "Impeccable",
+        "url": "https://github.com/pbakaus/impeccable"
+      }
+    ]
   }
 ]

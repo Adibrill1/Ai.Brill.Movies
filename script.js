@@ -265,7 +265,21 @@ function card(film) {
     time.dateTime = filmDate.value; time.dir = 'ltr';
     dateLine.append(document.createTextNode(`${filmDate.label}: `), time);
   } else dateLine.textContent = 'תאריך יצירה או פרסום לא ידוע';
-  body.append(top, title, creator, dateLine, node('p', film.description, 'blurb'), tool, moveField);
+  body.append(top, title, creator, dateLine, node('p', film.description, 'blurb'));
+  if (Array.isArray(film.links) && film.links.length) {
+    const links = node('ul', undefined, 'tool');
+    links.setAttribute('aria-label', `קישורים - ${film.title}`);
+    for (const link of film.links) {
+      const item = node('li');
+      const anchor = externalLink(link.label, link.url, undefined, film.title);
+      anchor.textContent = link.label;
+      anchor.dir = 'auto';
+      item.append(anchor);
+      links.append(item);
+    }
+    body.append(links);
+  }
+  body.append(tool, moveField);
   const loved = isLoved(film);
   const heart = node('button', undefined, 'heart-toggle');
   heart.type = 'button';

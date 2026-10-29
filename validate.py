@@ -33,6 +33,15 @@ for film in films:
             assert source.scheme == 'https' and source.netloc, (film['id'], field + 'Source')
     if film.get('posterFallback'):
         parsed = urlparse(film['posterFallback']); assert parsed.scheme == 'https' and parsed.netloc
+    if 'links' in film:
+        assert isinstance(film['links'], list) and film['links'], (film['id'], 'links')
+        link_urls = set()
+        for link in film['links']:
+            assert isinstance(link['label'], str) and link['label'].strip(), (film['id'], 'link label')
+            parsed = urlparse(link['url'])
+            assert parsed.scheme == 'https' and parsed.netloc and not parsed.username and not parsed.password, (film['id'], 'link URL')
+            assert link['url'] not in link_urls, (film['id'], 'Duplicate resource link')
+            link_urls.add(link['url'])
     if 'posterOptions' in film:
         assert isinstance(film['posterOptions'], list), (film['id'], 'posterOptions')
         image_urls = set()
