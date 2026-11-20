@@ -2549,5 +2549,43 @@
         "url": "https://videomd.github.io/videomd/"
       }
     ]
+  },
+  {
+    "id": "168",
+    "title": "Treblo",
+    "creator": "מחולל שירים חינמי עם AI",
+    "added": "2026-11-20",
+    "tools": null,
+    "category": "איך",
+    "description": "מחולל שירים מבוסס AI: כותבים רעיון או מילים ובוחרים סגנון, וה-AI מייצר שיר שלם עם שירה. אחרי ניסיון אמיתי (19.11.2026): יצירה בחינם עבדה בלי תשלום ובלי טלפון; לפעמים הוא מחליף מילות פקודה, ולכן כדאי לכתוב מחדש שורות כאלה. שימו לב לתנאי השימוש: הזכויות בשיר עוברות אליך, אבל ל-Treblo יש רישיון לשימוש בשירים ובמילים שהועלו (גם לאימון המודל), ואין הבטחה לייחודיות או לזכויות יוצרים. הקישור נשמר לעיון.",
+    "watchUrl": "https://treblo.com",
+    "sourceUrl": "https://treblo.com",
+    "poster": "https://scdn.treblo.com/images/genoninsert_58cefa12-bb4b-42e6-8849-7a83ba442fc9.webp",
+    "durationSeconds": null,
+    "links": [
+      {
+        "label": "אתר",
+        "url": "https://treblo.com"
+      }
+    ]
+  },
+  {
+    "id": "169",
+    "title": "Dicta Nakdan Simple",
+    "creator": "ניקוד אוטומטי לעברית",
+    "added": "2026-11-20",
+    "tools": null,
+    "category": "איך",
+    "description": "הנקדן הפשוט של דיקטה: כלי חינמי שמוסיף ניקוד אוטומטי לכל טקסט בעברית, עם בחירה בין שלושה סוגי טקסט: מודרני, רבני ושירה. נבדק 19.11.2026 באתר עצמו: חינם, ואין בעמוד הודעה על הרשמה. מגבלות אורך לא מצוינות בעמוד של הגרסה הפשוטה (בגרסה המהירה של דיקטה המגבלה היא 5,000 תווים). הקישור נשמר לעיון.",
+    "watchUrl": "https://nakdansimple.dicta.org.il",
+    "sourceUrl": "https://nakdansimple.dicta.org.il",
+    "poster": "https://nakdan.dicta.org.il/assets/logo-CpLFathX.png",
+    "durationSeconds": null,
+    "links": [
+      {
+        "label": "אתר",
+        "url": "https://nakdansimple.dicta.org.il"
+      }
+    ]
   }
 ]
